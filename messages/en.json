@@ -1,0 +1,263 @@
+{
+  "Nav": {
+    "home": "Home",
+    "about": "About us",
+    "products": "Our Products",
+    "clients": "Our Clients",
+    "contact": "Contact us"
+  },
+  "Common": {
+    "cta": "Get a quote",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "shortTag": "Printing & binding house",
+    "description": "Premium printing, secure binding, and custom packaging solutions.",
+    "hours": "Monday-Saturday, 9:00-17:00",
+    "logoAlt": "{name} logo",
+    "viewProducts": "View products →",
+    "allProducts": "All products →",
+    "sendAnother": "Send another",
+    "location": "Location",
+    "address": ["124 Botahtaung Zay Street", "Pazuntaung Township, Yangon"],
+    "hoursLabel": "Hours",
+    "phone": "Phone",
+    "email": "Email",
+    "mapIframeTitle": "{name} on Google Maps"
+  },
+  "Home": {
+    "eyebrow": "Printing & binding house · Yangon",
+    "title": "Print.\nBind.\nPublish.",
+    "lead": "Precision printing and expert binding for every project. We deliver vibrant colors and durable finishes, whether you need one copy or one thousand.",
+    "primaryCta": "Get a quote",
+    "secondaryCta": "See products",
+    "sliderLabel": "Workshop photos",
+    "goToSlide": "Show photo {index}",
+    "slides": {
+      "press": "Offset press printing sheets",
+      "bindery": "Hardcover books on a bindery bench",
+      "books": "Freshly printed books stacked on a press table",
+      "magazines": "Printed magazines on a bindery table",
+      "floor": "Print house floor with paper stacks and packaging"
+    },
+    "services": {
+      "printing": {
+        "title": "Printing",
+        "body": "High-quality digital and offset printing. We guarantee vibrant colors and precise ink application for books, magazines, and marketing materials.",
+        "imageAlt": "Printed sheets coming off an offset press"
+      },
+      "binding": {
+        "title": "Binding",
+        "body": "Durable binding crafted to protect your work. We offer complete in-house finishing for reports, books, and academic theses.",
+        "imageAlt": "Hardcover books stacked on a bindery bench"
+      }
+    },
+    "stats": {
+      "years": "Years since 2005",
+      "jobs": "Jobs on the floor",
+      "clients": "Returning clients"
+    },
+    "featuredHeading": "On the press",
+    "featuredKicker": "A short look at what we make. The full catalogue lives on Our Products.",
+    "ctaTitle": "Ready to start printing?",
+    "ctaBody": "Upload your files or share your ideas. We’ll quickly provide recommendations for paper, binding, and production timelines."
+  },
+  "About": {
+    "eyebrow": "About us",
+    "title": "The house",
+    "lead": "Win Pa Pa is a premier printing and binding house rooted in Yangon. With over 20 years of dedicated experience in the industry since our founding in 2005, we have mastered the art of print production. We set type, run colour, and finish books entirely under one roof. This integrated approach ensures uncompromising quality control, faster turnaround times, and a seamless experience from your initial manuscript to the final physical product",
+    "bannerAlt": "Printing and binding workers standing with the press boss",
+    "experienceLabel": "Years in printing & binding",
+    "est": "Est. {year}",
+    "storyTitle": "From Raw Fibre to Finished Book",
+    "story": [
+      "Our panda logo holds a bamboo shoot, representing the foundational fibres of our industry: paper. That respect for materials drives everything we do on the factory floor. We start with premium sheets and end with meticulously bound books built to withstand daily use. Operating in Yangon for over two decades, we handle everything from corporate brand packs to educational texts. We take pride in offering complete in-house proofing, printing, and binding with strict adherence to your deadlines."
+    ],
+    "founder": {
+      "name": "Founder",
+      "imageAlt": "Founder of Win Pa Pa standing in the press",
+      "role": "Founder, Win Pa Pa Publishing",
+      "since": "At the press since 2005",
+      "welcomeEyebrow": "A welcome",
+      "welcomeTitle": "From the founder",
+      "welcome": [
+        "Welcome to Win Pa Pa Publishing. Since establishing our press in Yangon in 2005, our mission has remained unchanged: delivering exceptional print quality and durable binding to our community. Whether you are an independent creator or an established enterprise, we are here to bring your vision to life. Bring us your concepts, and let's create something tangible together."
+      ]
+    },
+    "purposeTitle": "Mission & vision",
+    "mission": {
+      "title": "Our Mission",
+      "body": "To print and bind with meticulous care. We deliver accurate colors, premium paper, and dependable service for schools, presses, and everyday work across Yangon."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "body": "A house people return to for their next run. We are known for work that holds on the shelf and a press that still feels personal after twenty years."
+    },
+    "valuesTitle": "How we work",
+    "values": {
+      "accuracy": {
+        "title": "Accuracy",
+        "body": "Rigorous quality control at every step. We verify alignment, colors, and pagination before any ink touches the final page."
+      },
+      "bind": {
+        "title": "Bind quality",
+        "body": "Spines, stitches, and covers finished so the book survives a bag and a shelf."
+      },
+      "deadlines": {
+        "title": "Deadlines",
+        "body": "Transparent timelines from day one. We commit to a strict production schedule so your materials arrive exactly when promised."
+      }
+    },
+    "processTitle": "From brief to door",
+    "process": {
+      "brief": {
+        "title": "Brief",
+        "body": "Paper, size, colour, bind, and count. A file or a sample helps."
+      },
+      "print": {
+        "title": "Print",
+        "body": "Proof, then offset or digital depending on the run."
+      },
+      "bind": {
+        "title": "Bind",
+        "body": "Perfect, saddle, spiral, hardcover, or thesis — in house."
+      },
+      "deliver": {
+        "title": "Deliver",
+        "body": "Packed and sent across Yangon, or held for collection."
+      }
+    }
+  },
+  "Products": {
+    "eyebrow": "Our Products",
+    "title": "Print, then bind",
+    "lead": "Two benches, one house. Choose a print method, a bind, or both — we quote from the actual job, not a rate card alone.",
+    "groups": {
+      "printing": {
+        "title": "Printing",
+        "intro": "Sheets and signatures for books, stationery, and packs."
+      },
+      "binding": {
+        "title": "Binding",
+        "intro": "Finishes that hold the run together — from a slim booklet to a hardcover."
+      }
+    },
+    "items": {
+      "offset": {
+        "name": "Offset printing",
+        "blurb": "Consistent, high-fidelity color reproduction for large-scale commercial runs on any paper stock.",
+        "from": "Quote by sheet volume",
+        "imageAlt": "Sheets coming off an offset printing press"
+      },
+      "digital": {
+        "name": "Digital printing",
+        "blurb": "Short runs and proofs without plates — fast when the file is ready.",
+        "from": "Quote by copy count",
+        "imageAlt": "A digital press producing a short run"
+      },
+      "books": {
+        "name": "Books",
+        "blurb": "Professionally printed interiors and vibrant covers, tailored exactly to your specific publishing needs.",
+        "from": "Quote by page count",
+        "imageAlt": "Printed book interiors stacked on a press table"
+      },
+      "magazines": {
+        "name": "Magazines",
+        "blurb": "Periodicals with tight registration and a clean, repeatable trim.",
+        "from": "Quote by issue",
+        "imageAlt": "A stack of freshly printed magazines"
+      },
+      "stationery": {
+        "name": "Stationery",
+        "blurb": "Letterheads, cards, forms, and pads for offices and schools.",
+        "from": "Quote by set",
+        "imageAlt": "Printed letterheads, cards, and pads"
+      },
+      "packaging": {
+        "name": "Packaging",
+        "blurb": "Cartons, sleeves, and wraps with colour that sits on board.",
+        "from": "Quote by die",
+        "imageAlt": "Printed cartons and packaging sleeves"
+      },
+      "perfect": {
+        "name": "Perfect binding",
+        "blurb": "Sleek, professional softcover finishes ideal for annual reports, corporate catalogs, and paperbacks.",
+        "from": "Quote by spine thickness",
+        "imageAlt": "Perfect-bound softcover book spines"
+      },
+      "saddle": {
+        "name": "Saddle stitch",
+        "blurb": "Booklets and magazines that lie fairly flat and stay light.",
+        "from": "Quote by signature",
+        "imageAlt": "Saddle-stitched booklets on a bindery bench"
+      },
+      "spiral": {
+        "name": "Spiral & wire-o",
+        "blurb": "Lay-flat notebooks, manuals, and calendars that take daily use.",
+        "from": "Quote by size",
+        "imageAlt": "Spiral and wire-o bound notebooks"
+      },
+      "hardcover": {
+        "name": "Hardcover",
+        "blurb": "Casebound volumes with boards, cloth or printed wrap, and a firm spine.",
+        "from": "Quote by case",
+        "imageAlt": "Hardcover casebound books on a bindery bench"
+      }
+    }
+  },
+  "Clients": {
+    "eyebrow": "Our Clients",
+    "title": "Sectors we print for",
+    "lead": "Schools, presses, studios, and offices who come back when the next run is due.",
+    "sectors": {
+      "education": "Education",
+      "publishing": "Publishing",
+      "culture": "Culture",
+      "professional": "Professional",
+      "goods": "Goods",
+      "health": "Health",
+      "retail": "Retail",
+      "hospitality": "Hospitality"
+    },
+    "testimonials": {
+      "gazette": "The colour on our gazette holds from issue to issue. That is the only reason we stopped shopping around.",
+      "thesis": "Thesis copies arrived with spines that actually match. Students stop asking us who bound them.",
+      "runs": "Short digital runs when we need a pack, offset when we reprint. One house for both."
+    }
+  },
+  "Contact": {
+    "eyebrow": "Contact us",
+    "title": "Start a job",
+    "lead": "Tell us what you are printing. We will reply with paper, bind options, and a time.",
+    "bannerAlt": "Customer service advisor wearing a headset",
+    "press": "Press",
+    "formTitle": "Request a quote",
+    "successTitle": "Thank you.",
+    "successBody": "Your brief is on its way to the press. We will reply with paper, bind options, and a time.",
+    "submitError": "Could not send. Please call us or try again.",
+    "placeholder": "Size, paper, colour, bind, and how many.",
+    "fields": {
+      "name": "Name",
+      "phone": "Phone",
+      "email": "Email",
+      "service": "Service",
+      "message": "Message",
+      "submit": "Send brief",
+      "sending": "Sending…",
+      "phoneError": "Enter a phone number with 8–15 digits."
+    },
+    "services": {
+      "printing": "Printing",
+      "binding": "Binding",
+      "both": "Printing & binding",
+      "other": "Something else"
+    }
+  },
+  "Footer": {
+    "pages": "Pages",
+    "press": "Press",
+    "copyright": "© {year} {name}",
+    "cityLine": "Yangon · printing & binding"
+  }
+}

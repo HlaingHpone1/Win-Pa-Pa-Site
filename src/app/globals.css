@@ -20,8 +20,10 @@
   --color-slate: var(--slate);
   --color-paper: var(--paper);
   --color-hairline: var(--hairline);
-  --font-sans: var(--font-work-sans);
-  --font-display: var(--font-syne);
+  --font-sans: var(--font-work-sans), var(--font-myanmar);
+  --font-display: var(--font-syne), var(--font-myanmar);
+  --default-transition-duration: 300ms;
+  --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
@@ -47,7 +49,45 @@ h6 {
   letter-spacing: -0.03em;
 }
 
+html[lang="my"] {
+  line-height: 1.75;
+}
+
+html[lang="my"] h1,
+html[lang="my"] h2,
+html[lang="my"] h3,
+html[lang="my"] h4,
+html[lang="my"] h5,
+html[lang="my"] h6 {
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
 ::selection {
   background: color-mix(in srgb, var(--primary) 40%, white);
   color: var(--ink);
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    transition-duration: 0.01ms;
+  }
 }

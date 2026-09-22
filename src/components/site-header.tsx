@@ -1,19 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNav } from "@/components/mobile-nav";
 import { NavLinks } from "@/components/nav-links";
 import { company } from "@/content/site";
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const t = await getTranslations("Common");
+
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-paper/90 backdrop-blur-md">
       <Container className="flex h-[4.25rem] items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3 text-ink">
+        <Link href="/" className="flex items-center gap-3 text-ink transition-opacity duration-300 ease-out hover:opacity-80">
           <Image
             src="/logo_winpapa.jpg"
-            alt={`${company.fullName} logo`}
+            alt={t("logoAlt", { name: company.fullName })}
             width={40}
             height={40}
             className="h-10 w-10 rounded-lg object-cover"
@@ -22,7 +26,7 @@ export function SiteHeader() {
           <span className="font-display text-base font-semibold tracking-tight">
             {company.name}
             <span className="hidden font-sans text-xs font-normal tracking-wide text-slate sm:block">
-              {company.shortTag}
+              {t("shortTag")}
             </span>
           </span>
         </Link>
@@ -32,7 +36,8 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button href="/contact">{company.cta}</Button>
+          <LanguageSwitcher />
+          <Button href="/contact">{t("cta")}</Button>
           <MobileNav />
         </div>
       </Container>

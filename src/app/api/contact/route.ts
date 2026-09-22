@@ -1,7 +1,7 @@
-import { contact } from "@/content/site";
+import { serviceValues } from "@/content/site";
 import { sendQuoteToTelegram } from "@/lib/telegram";
 
-const services = new Set(contact.serviceOptions.map((option) => option.value));
+const services = new Set<string>(serviceValues);
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function digitsOnly(value: string) {

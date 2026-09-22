@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/button";
-import { contact } from "@/content/site";
+import { serviceValues } from "@/content/site";
 
 type Status = "idle" | "sending" | "sent";
 
@@ -22,6 +23,8 @@ function isValidPhone(value: string) {
 }
 
 export function QuoteForm() {
+  const t = useTranslations("Contact");
+  const tCommon = useTranslations("Common");
   const [status, setStatus] = useState<Status>("idle");
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -31,9 +34,9 @@ export function QuoteForm() {
     return (
       <div className="rounded-2xl border border-hairline bg-paper p-8">
         <p className="font-display text-2xl font-semibold text-ink">
-          {contact.successTitle}
+          {t("successTitle")}
         </p>
-        <p className="mt-3 text-sm leading-6">{contact.successBody}</p>
+        <p className="mt-3 text-sm leading-6">{t("successBody")}</p>
         <Button
           className="mt-6"
           variant="secondary"
@@ -44,7 +47,7 @@ export function QuoteForm() {
             setSubmitError("");
           }}
         >
-          Send another
+          {tCommon("sendAnother")}
         </Button>
       </div>
     );
@@ -64,10 +67,10 @@ export function QuoteForm() {
         const message = String(data.get("message") ?? "").trim();
 
         if (!isValidPhone(nextPhone)) {
-          setPhoneError(contact.fields.phoneError);
+          setPhoneError(t("fields.phoneError"));
           const phoneInput = form.elements.namedItem("phone");
           if (phoneInput instanceof HTMLInputElement) {
-            phoneInput.setCustomValidity(contact.fields.phoneError);
+            phoneInput.setCustomValidity(t("fields.phoneError"));
             phoneInput.reportValidity();
           }
           return;
@@ -96,21 +99,21 @@ export function QuoteForm() {
           setStatus("sent");
         } catch {
           setStatus("idle");
-          setSubmitError(contact.submitError);
+          setSubmitError(t("submitError"));
         }
       }}
     >
       <p className="font-display text-2xl font-semibold text-ink">
-        {contact.formTitle}
+        {t("formTitle")}
       </p>
       <Field
-        label={contact.fields.name}
+        label={t("fields.name")}
         name="name"
         autoComplete="name"
         required
       />
       <label className="grid gap-2 text-sm">
-        <span className="font-medium text-ink">{contact.fields.phone}</span>
+        <span className="font-medium text-ink">{t("fields.phone")}</span>
         <input
           name="phone"
           type="tel"
@@ -121,7 +124,7 @@ export function QuoteForm() {
           pattern={phonePattern}
           aria-invalid={phoneError ? true : undefined}
           aria-describedby={phoneError ? "phone-error" : undefined}
-          className={`min-h-11 rounded-xl border bg-paper px-3 text-ink outline-none focus:border-primary ${
+          className={`min-h-11 rounded-xl border bg-paper px-3 text-ink outline-none transition-colors duration-300 ease-out focus:border-primary ${
             phoneError ? "border-red-500" : "border-hairline"
           }`}
           onChange={(event) => {
@@ -131,8 +134,8 @@ export function QuoteForm() {
               setPhoneError("");
               event.target.setCustomValidity("");
             } else {
-              setPhoneError(contact.fields.phoneError);
-              event.target.setCustomValidity(contact.fields.phoneError);
+              setPhoneError(t("fields.phoneError"));
+              event.target.setCustomValidity(t("fields.phoneError"));
             }
           }}
         />
@@ -143,42 +146,42 @@ export function QuoteForm() {
         ) : null}
       </label>
       <Field
-        label={contact.fields.email}
+        label={t("fields.email")}
         name="email"
         type="email"
         autoComplete="email"
         required
       />
       <label className="grid gap-2 text-sm">
-        <span className="font-medium text-ink">{contact.fields.service}</span>
+        <span className="font-medium text-ink">{t("fields.service")}</span>
         <select
           name="service"
           required
           defaultValue="both"
-          className="min-h-11 rounded-xl border border-hairline bg-paper px-3 text-ink outline-none focus:border-primary"
+          className="min-h-11 rounded-xl border border-hairline bg-paper px-3 text-ink outline-none transition-colors duration-300 ease-out focus:border-primary"
         >
-          {contact.serviceOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
+          {serviceValues.map((value) => (
+            <option key={value} value={value}>
+              {t(`services.${value}`)}
             </option>
           ))}
         </select>
       </label>
       <label className="grid gap-2 text-sm">
-        <span className="font-medium text-ink">{contact.fields.message}</span>
+        <span className="font-medium text-ink">{t("fields.message")}</span>
         <textarea
           name="message"
           required
           rows={5}
-          className="rounded-xl border border-hairline bg-paper px-3 py-3 text-ink outline-none focus:border-primary"
-          placeholder="Size, paper, colour, bind, and how many."
+          className="rounded-xl border border-hairline bg-paper px-3 py-3 text-ink outline-none transition-colors duration-300 ease-out focus:border-primary"
+          placeholder={t("placeholder")}
         />
       </label>
       {submitError ? (
         <p className="text-sm text-red-600">{submitError}</p>
       ) : null}
       <Button type="submit" disabled={status === "sending"}>
-        {status === "sending" ? contact.fields.sending : contact.fields.submit}
+        {status === "sending" ? t("fields.sending") : t("fields.submit")}
       </Button>
     </form>
   );
@@ -205,7 +208,7 @@ function Field({
         type={type}
         autoComplete={autoComplete}
         required={required}
-        className="min-h-11 rounded-xl border border-hairline bg-paper px-3 text-ink outline-none focus:border-primary"
+        className="min-h-11 rounded-xl border border-hairline bg-paper px-3 text-ink outline-none transition-colors duration-300 ease-out focus:border-primary"
       />
     </label>
   );

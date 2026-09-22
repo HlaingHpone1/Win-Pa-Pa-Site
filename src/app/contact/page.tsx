@@ -1,28 +1,42 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { QuoteForm } from "@/components/quote-form";
-import { company, contact } from "@/content/site";
+import { company } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Contact us",
-  description: contact.lead,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Contact");
 
-export default function ContactPage() {
+  return {
+    title: t("eyebrow"),
+    description: t("lead"),
+  };
+}
+
+export default async function ContactPage() {
+  const t = await getTranslations("Contact");
+  const tCommon = await getTranslations("Common");
+
   return (
     <>
-      <PageHero eyebrow={contact.eyebrow} title={contact.title} lead={contact.lead} />
+      <PageHero
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        lead={t("lead")}
+        image="/hero/contact.jpg"
+        imageAlt={t("bannerAlt")}
+      />
 
       <section>
         <Container className="grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr]">
           <div className="space-y-8">
-            <p className="font-display text-sm font-semibold text-ink">Press</p>
+            <p className="font-display text-sm font-semibold text-ink">{t("press")}</p>
             <ul className="space-y-6">
               <li>
-                <Detail icon={<LocationIcon />} label="Location">
+                <Detail icon={<LocationIcon />} label={tCommon("location")}>
                   <address className="not-italic text-base leading-7">
-                    {company.addressLines.map((line) => (
+                    {(tCommon.raw("address") as string[]).map((line) => (
                       <span key={line} className="block">
                         {line}
                       </span>
@@ -31,18 +45,18 @@ export default function ContactPage() {
                 </Detail>
               </li>
               <li>
-                <Detail icon={<TimeIcon />} label="Hours">
-                  <p className="text-base leading-7">{company.hours}</p>
+                <Detail icon={<TimeIcon />} label={tCommon("hoursLabel")}>
+                  <p className="text-base leading-7">{tCommon("hours")}</p>
                 </Detail>
               </li>
               <li>
-                <Detail icon={<PhoneIcon />} label="Phone">
+                <Detail icon={<PhoneIcon />} label={tCommon("phone")}>
                   <ul className="space-y-1">
                     {company.phones.map((phone) => (
                       <li key={phone}>
                         <a
                           href={`tel:${phone.replaceAll("-", "")}`}
-                          className="text-lg font-medium text-ink hover:text-primary-dark"
+                          className="text-lg font-medium text-ink transition-colors duration-300 ease-out hover:text-primary-dark"
                         >
                           {phone}
                         </a>
@@ -52,10 +66,10 @@ export default function ContactPage() {
                 </Detail>
               </li>
               <li>
-                <Detail icon={<EmailIcon />} label="Email">
+                <Detail icon={<EmailIcon />} label={tCommon("email")}>
                   <a
                     href={`mailto:${company.email}`}
-                    className="break-all text-ink hover:text-primary-dark"
+                    className="break-all text-ink transition-colors duration-300 ease-out hover:text-primary-dark"
                   >
                     {company.email}
                   </a>
@@ -67,23 +81,17 @@ export default function ContactPage() {
         </Container>
       </section>
 
-      <section className="border-t border-hairline bg-white">
-        <Container className="py-16">
-          <h2 className="text-3xl font-semibold sm:text-4xl">{contact.mapTitle}</h2>
-          <p className="mt-3 max-w-xl text-sm leading-6">{contact.mapLead}</p>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-hairline">
-            <iframe
-              title={`${company.fullName} on Google Maps`}
-              src={company.mapEmbedSrc}
-              width="600"
-              height="450"
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-              className="block h-[min(70vh,32rem)] w-full border-0"
-            />
-          </div>
-        </Container>
+      <section>
+        <iframe
+          title={tCommon("mapIframeTitle", { name: company.fullName })}
+          src={company.mapEmbedSrc}
+          width="600"
+          height="450"
+          loading="lazy"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          className="block h-[70vh] min-h-[28rem] w-full border-0"
+        />
       </section>
     </>
   );

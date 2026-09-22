@@ -1,88 +1,84 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
+import { CountUpStats } from "@/components/count-up-stats";
+import { HeroSlider } from "@/components/hero-slider";
 import { ProductCard } from "@/components/product-card";
 import { featuredProducts } from "@/content/products";
-import { company, home } from "@/content/site";
+import { homeServices, homeStats } from "@/content/site";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const t = await getTranslations("Home");
+  const tCommon = await getTranslations("Common");
+
   return (
     <>
-      <section className="overflow-hidden border-b border-hairline">
-        <Container className="grid items-center gap-12 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:py-24">
-          <div>
-            <p className="text-xs font-medium tracking-[0.18em] text-primary-dark uppercase">
-              {home.eyebrow}
-            </p>
-            <h1 className="mt-5 max-w-xl text-5xl leading-[0.95] font-semibold sm:text-6xl md:text-7xl">
-              Print.
-              <br />
-              Bind.
-              <br />
-              Publish.
-            </h1>
-            <p className="mt-6 max-w-md text-base leading-7 sm:text-lg">{home.lead}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href={home.primaryCta.href}>{home.primaryCta.label}</Button>
-              <Button href={home.secondaryCta.href} variant="secondary">
-                {home.secondaryCta.label}
-              </Button>
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-sm">
-            <div
-              aria-hidden
-              className="absolute -right-3 -bottom-3 h-full w-full rounded-3xl bg-primary"
-            />
-            <div className="relative rounded-3xl border border-hairline bg-white p-8">
-              <CropMarks />
-              <Image
-                src="/logo_winpapa.jpg"
-                alt={`${company.fullName} logo`}
-                width={320}
-                height={320}
-                className="mx-auto h-auto w-full max-w-[240px] rounded-2xl object-cover"
-                priority
-              />
-              <p className="mt-6 text-center font-display text-sm font-semibold tracking-[0.2em] text-ink uppercase">
-                {company.fullName}
-              </p>
-            </div>
+      <HeroSlider>
+        <Container>
+          <p className="text-xs font-medium tracking-[0.18em] text-primary-dark uppercase">
+            {t("eyebrow")}
+          </p>
+          <h1 className="mt-5 max-w-xl whitespace-pre-line text-5xl leading-[0.95] font-semibold sm:text-6xl md:text-7xl [html[lang=my]_&]:leading-[1.5]!">
+            {t("title")}
+          </h1>
+          <p className="mt-6 max-w-md text-base leading-7 sm:text-lg">
+            {t("lead")}
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button href="/contact">{t("primaryCta")}</Button>
+            <Button href="/products" variant="secondary">
+              {t("secondaryCta")}
+            </Button>
           </div>
         </Container>
-      </section>
+      </HeroSlider>
 
       <section className="border-b border-hairline bg-white">
         <Container className="grid gap-6 py-16 sm:grid-cols-2">
-          {home.services.map((service) => (
+          {homeServices.map((service) => (
             <Link
-              key={service.index}
+              key={service.id}
               href={service.href}
-              className="group rounded-3xl border border-hairline bg-paper p-8 transition-colors hover:border-primary"
+              className="group overflow-hidden rounded-3xl border border-hairline bg-paper transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-primary hover:shadow-[0_18px_40px_-24px_rgba(17,24,39,0.35)]"
             >
-              <p className="font-display text-sm font-semibold text-primary-dark">
-                {service.index}
-              </p>
-              <h2 className="mt-8 text-3xl font-semibold">{service.title}</h2>
-              <p className="mt-3 text-sm leading-6">{service.body}</p>
-              <p className="mt-8 text-sm font-medium text-ink group-hover:text-primary-dark">
-                View products →
-              </p>
+              <div className="relative aspect-[16/10] overflow-hidden bg-white">
+                <Image
+                  src={service.image}
+                  alt={t(`services.${service.id}.imageAlt`)}
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                />
+              </div>
+              <div className="p-8">
+                <p className="font-display text-sm font-semibold text-primary-dark">
+                  {service.index}
+                </p>
+                <h2 className="mt-6 text-3xl font-semibold">
+                  {t(`services.${service.id}.title`)}
+                </h2>
+                <p className="mt-3 text-sm leading-6">
+                  {t(`services.${service.id}.body`)}
+                </p>
+                <p className="mt-8 text-sm font-medium text-ink transition-colors duration-300 ease-out group-hover:text-primary-dark">
+                  {tCommon("viewProducts")}
+                </p>
+              </div>
             </Link>
           ))}
         </Container>
       </section>
 
-      <section className="border-b border-hairline">
-        <Container className="grid gap-8 py-10 sm:grid-cols-3">
-          {home.stats.map((stat) => (
-            <div key={stat.label} className="text-center sm:text-left">
-              <p className="font-display text-4xl font-semibold text-ink">{stat.value}</p>
-              <p className="mt-1 text-sm">{stat.label}</p>
-            </div>
-          ))}
+      <section className="bg-primary text-white">
+        <Container>
+          <CountUpStats
+            stats={homeStats.map((stat) => ({
+              ...stat,
+              label: t(`stats.${stat.id}`),
+            }))}
+          />
         </Container>
       </section>
 
@@ -90,11 +86,15 @@ export default function HomePage() {
         <Container className="py-16">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="text-3xl font-semibold sm:text-4xl">{home.featuredHeading}</h2>
-              <p className="mt-2 max-w-xl text-sm leading-6">{home.featuredKicker}</p>
+              <h2 className="text-3xl font-semibold sm:text-4xl">
+                {t("featuredHeading")}
+              </h2>
+              <p className="mt-2 max-w-xl text-sm leading-6">
+                {t("featuredKicker")}
+              </p>
             </div>
             <Button href="/products" variant="ghost">
-              All products →
+              {tCommon("allProducts")}
             </Button>
           </div>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -108,23 +108,14 @@ export default function HomePage() {
       <section>
         <Container className="flex flex-col items-start gap-6 py-20 sm:flex-row sm:items-center sm:justify-between">
           <div className="max-w-lg">
-            <h2 className="text-3xl font-semibold sm:text-4xl">{home.ctaTitle}</h2>
-            <p className="mt-3 text-base leading-7">{home.ctaBody}</p>
+            <h2 className="text-3xl font-semibold sm:text-4xl">
+              {t("ctaTitle")}
+            </h2>
+            <p className="mt-3 text-base leading-7">{t("ctaBody")}</p>
           </div>
-          <Button href="/contact">{company.cta}</Button>
+          <Button href="/contact">{tCommon("cta")}</Button>
         </Container>
       </section>
-    </>
-  );
-}
-
-function CropMarks() {
-  return (
-    <>
-      <span className="absolute top-3 left-3 h-3 w-3 border-t border-l border-ink/30" />
-      <span className="absolute top-3 right-3 h-3 w-3 border-t border-r border-ink/30" />
-      <span className="absolute bottom-3 left-3 h-3 w-3 border-b border-l border-ink/30" />
-      <span className="absolute right-3 bottom-3 h-3 w-3 border-r border-b border-ink/30" />
     </>
   );
 }

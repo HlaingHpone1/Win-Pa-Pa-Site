@@ -1,12 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/button";
 import { NavLinks } from "@/components/nav-links";
-import { company } from "@/content/site";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("Common");
 
   useEffect(() => {
     if (!open) {
@@ -32,17 +33,13 @@ export function MobileNav() {
     <div className="lg:hidden">
       <button
         type="button"
-        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-hairline bg-white text-ink"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-hairline bg-white text-ink transition-colors duration-300 ease-out hover:border-primary"
         aria-expanded={open}
         aria-controls="mobile-menu"
         onClick={() => setOpen((value) => !value)}
       >
-        <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-        {open ? (
-          <CloseIcon />
-        ) : (
-          <MenuIcon />
-        )}
+        <span className="sr-only">{open ? t("closeMenu") : t("openMenu")}</span>
+        {open ? <CloseIcon /> : <MenuIcon />}
       </button>
 
       {open ? (
@@ -57,7 +54,7 @@ export function MobileNav() {
           />
           <div className="mt-8">
             <Button href="/contact" className="w-full" onClick={() => setOpen(false)}>
-              {company.cta}
+              {t("cta")}
             </Button>
           </div>
         </div>

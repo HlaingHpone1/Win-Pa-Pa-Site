@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Syne, Work_Sans } from "next/font/google";
+import { Noto_Sans_Myanmar, Syne, Work_Sans } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { company } from "@/content/site";
@@ -17,32 +19,48 @@ const workSans = Work_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: company.fullName,
-    template: `%s · ${company.fullName}`,
-  },
-  description: company.description,
-};
+const notoSansMyanmar = Noto_Sans_Myanmar({
+  variable: "--font-myanmar",
+  subsets: ["myanmar"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("Common");
+
+  return {
+    title: {
+      default: company.fullName,
+      template: `%s · ${company.fullName}`,
+    },
+    description: t("description"),
+  };
+}
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const locale = await getLocale();
+  const t = await getTranslations("Common");
+
   return (
     <html
-      lang="en"
-      className={`${syne.variable} ${workSans.variable} h-full font-sans antialiased`}
+      lang={locale}
+      className={`${syne.variable} ${workSans.variable} ${notoSansMyanmar.variable} h-full font-sans antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <a
-          href="#content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-ink"
-        >
-          Skip to content
-        </a>
-        <SiteHeader />
-        <main id="content" className="flex flex-1 flex-col">
-          {children}
-        </main>
-        <SiteFooter />
+        <NextIntlClientProvider>
+          <a
+            href="#content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-ink"
+          >
+            {t("skipToContent")}
+          </a>
+          <SiteHeader />
+          <main id="content" className="flex flex-1 flex-col">
+            {children}
+          </main>
+          <SiteFooter />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

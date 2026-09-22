@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { nav } from "@/content/site";
 
@@ -21,6 +22,7 @@ export function NavLinks({
   linkClassName?: string;
 }) {
   const pathname = usePathname() ?? "/";
+  const t = useTranslations("Nav");
 
   return (
     <ul className={className}>
@@ -31,14 +33,14 @@ export function NavLinks({
             <Link
               href={item.href}
               onClick={onNavigate}
-              className={`relative inline-flex min-h-11 items-center text-sm tracking-wide transition-colors ${
+              className={`relative inline-flex min-h-11 items-center text-sm tracking-wide transition-colors duration-300 ease-out ${
                 active
                   ? "font-medium text-ink"
                   : "text-slate hover:text-ink"
               } whitespace-nowrap ${linkClassName}`}
               aria-current={active ? "page" : undefined}
             >
-              {item.label}
+              {t(item.key)}
               {active ? (
                 <span
                   aria-hidden
