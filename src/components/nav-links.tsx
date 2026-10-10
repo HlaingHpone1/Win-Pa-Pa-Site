@@ -33,20 +33,22 @@ export function NavLinks({
             <Link
               href={item.href}
               onClick={onNavigate}
-              className={`relative inline-flex min-h-11 items-center text-sm tracking-wide transition-colors duration-300 ease-out ${
+              className={`group relative inline-flex min-h-11 items-center text-sm tracking-wide transition-colors duration-300 ease-out ${
                 active
                   ? "font-medium text-ink"
                   : "text-slate hover:text-ink"
               } whitespace-nowrap ${linkClassName}`}
               aria-current={active ? "page" : undefined}
             >
-              {t(item.key)}
-              {active ? (
+              <span className="relative">
+                {t(item.key)}
                 <span
                   aria-hidden
-                  className="absolute bottom-2 left-0 h-0.5 w-6 rounded-full bg-primary"
+                  className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-primary transition-[width] duration-300 ease-out motion-reduce:transition-none ${
+                    active ? "w-6 group-hover:w-full" : "w-0 group-hover:w-full"
+                  }`}
                 />
-              ) : null}
+              </span>
             </Link>
           </li>
         );

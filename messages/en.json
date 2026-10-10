@@ -109,34 +109,35 @@
         "body": "Transparent timelines from day one. We commit to a strict production schedule so your materials arrive exactly when promised."
       }
     },
-    "processTitle": "From brief to door",
+    "processTitle": "A seamless process, from brief to door",
     "process": {
       "brief": {
-        "title": "Brief",
-        "body": "Paper, size, colour, bind, and count. A file or a sample helps."
+        "title": "Tell us your specifications",
+        "body": "paper quality, dimensions, colors, binding preference, and quantity. Share your files or samples for an accurate start."
       },
       "print": {
         "title": "Print",
-        "body": "Proof, then offset or digital depending on the run."
+        "body": "After approving the initial proof, your project is routed to our digital or offset presses based on what best suits your volume."
       },
       "bind": {
         "title": "Bind",
-        "body": "Perfect, saddle, spiral, hardcover, or thesis — in house."
+        "body": "Choose from our in-house finishing options, including perfect bind, saddle, spiral, and premium hardcover or thesis binding."
       },
       "deliver": {
         "title": "Deliver",
-        "body": "Packed and sent across Yangon, or held for collection."
+        "body": "Your final product is securely packed and delivered directly to your location anywhere in Yangon, or prepped for easy pickup."
       }
     }
   },
   "Products": {
     "eyebrow": "Our Products",
-    "title": "Print, then bind",
-    "lead": "Two benches, one house. Choose a print method, a bind, or both — we quote from the actual job, not a rate card alone.",
+    "title": "Custom Print & Bind Solutions",
+    "lead": "From loose sheets to finished books, everything happens under one roof. Whether you need just the print, just the bind, or the complete package, we tailor our pricing exactly to your unique job requirements.",
+    "bannerAlt": "Printed books, magazines, and bound volumes on the bindery bench",
     "groups": {
       "printing": {
-        "title": "Printing",
-        "intro": "Sheets and signatures for books, stationery, and packs."
+        "title": "Print Services",
+        "intro": "Professional, scalable printing for all your corporate and creative needs."
       },
       "binding": {
         "title": "Binding",
@@ -210,6 +211,7 @@
     "eyebrow": "Our Clients",
     "title": "Sectors we print for",
     "lead": "Schools, presses, studios, and offices who come back when the next run is due.",
+    "bannerAlt": "Clients holding printed books and magazines at the press",
     "sectors": {
       "education": "Education",
       "publishing": "Publishing",

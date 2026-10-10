@@ -36,8 +36,12 @@ export async function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <LanguageSwitcher />
-          <Button href="/contact">{t("cta")}</Button>
+          <div className="hidden lg:block">
+            <LanguageSwitcher />
+          </div>
+          <div className="hidden lg:block">
+            <Button href="/contact">{t("cta")}</Button>
+          </div>
           <MobileNav />
         </div>
       </Container>

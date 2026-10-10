@@ -21,7 +21,13 @@ export default async function ProductsPage() {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
+      <PageHero
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        lead={t("lead")}
+        image="/hero/products.jpg"
+        imageAlt={t("bannerAlt")}
+      />
 
       {productGroupIds.map((groupId) => (
         <section

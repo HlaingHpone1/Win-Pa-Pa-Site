@@ -18,7 +18,13 @@ export default async function ClientsPage() {
 
   return (
     <>
-      <PageHero eyebrow={t("eyebrow")} title={t("title")} lead={t("lead")} />
+      <PageHero
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        lead={t("lead")}
+        image="/hero/clients-group.jpg"
+        imageAlt={t("bannerAlt")}
+      />
 
       <section className="border-b border-hairline bg-white">
         <Container className="py-16">
