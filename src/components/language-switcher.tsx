@@ -21,23 +21,18 @@ export function LanguageSwitcher() {
     <div
       role="group"
       aria-label={t("language")}
-      className="flex items-center gap-1 text-sm"
+      className="inline-flex items-center gap-1 rounded-brand border border-white/10 bg-white/5 p-1 text-sm"
     >
-      {locales.map((item, index) => {
+      {locales.map((item) => {
         const active = locale === item;
         return (
-          <span key={item} className="flex items-center gap-1">
-            {index > 0 ? (
-              <span className="text-slate/40" aria-hidden>
-                |
-              </span>
-            ) : null}
+          <span key={item} className="flex">
             <button
               type="button"
               disabled={pending}
               aria-pressed={active}
-              className={`min-h-11 px-1.5 tracking-wide transition-colors duration-300 ease-out ${
-                active ? "font-medium text-ink" : "text-slate hover:text-ink"
+              className={`min-h-10 rounded-brand px-3 tracking-wide transition-colors duration-300 ease-out ${
+                active ? "bg-primary font-semibold text-ink" : "text-white/70 hover:text-white"
               }`}
               onClick={() => {
                 if (active) {

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { company, nav } from "@/content/site";
 
@@ -10,32 +11,52 @@ export async function SiteFooter() {
   const tCommon = await getTranslations("Common");
 
   return (
-    <footer className="mt-auto bg-primary text-white">
-      <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-3">
+    <footer className="grain relative mt-auto overflow-hidden bg-ink text-white">
+      <Container className="relative pt-20">
+        <div className="flex flex-col gap-8 border-b border-white/10 pb-14 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-eyebrow text-primary">{tCommon("cta")}</p>
+            <p className="text-heading mt-4 text-white">
+              {t("ctaTitle")}
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button href="/contact#quote" arrow>
+              {tCommon("cta")}
+            </Button>
+            <Button href={`tel:${company.phones[0].replaceAll("-", "")}`} variant="dark">
+              {company.phones[0]}
+            </Button>
+          </div>
+        </div>
+      </Container>
+      <Container className="relative grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col gap-4">
-          <Link href="/" className="flex items-center gap-3 text-white transition-opacity duration-300 ease-out hover:opacity-80">
-            <Image
-              src="/logo_winpapa.jpg"
-              alt={tCommon("logoAlt", { name: company.fullName })}
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-lg object-cover"
-            />
+          <Link href="/" className="flex items-center gap-3 text-white transition-opacity duration-300 ease-out hover:opacity-85">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-brand bg-white">
+              <Image
+                src="/logo_winpapa.jpg"
+                alt={tCommon("logoAlt", { name: company.fullName })}
+                width={44}
+                height={44}
+                className="h-11 w-11 object-cover"
+              />
+            </span>
             <span className="font-display text-lg font-semibold tracking-tight">
               {company.fullName}
             </span>
           </Link>
-          <p className="max-w-xs text-sm leading-6 text-white/90">{tCommon("description")}</p>
+          <p className="text-body max-w-xs text-white/65">{tCommon("description")}</p>
         </div>
 
         <nav aria-label="Footer">
-          <p className="font-display text-sm font-semibold text-white">{t("pages")}</p>
+          <p className="text-eyebrow text-primary">{t("pages")}</p>
           <ul className="mt-4 space-y-2">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-white/90 transition-colors duration-300 ease-out hover:text-white"
+                  className="text-sm text-white/70 transition-colors duration-300 ease-out hover:text-primary"
                 >
                   {tNav(item.key)}
                 </Link>
@@ -45,11 +66,11 @@ export async function SiteFooter() {
         </nav>
 
         <div>
-          <p className="font-display text-sm font-semibold text-white">{t("press")}</p>
+          <p className="text-eyebrow text-primary">{t("press")}</p>
           <ul className="mt-4 space-y-4">
             <li>
               <FooterLine icon={<LocationIcon />} label={tCommon("location")}>
-                <address className="not-italic text-sm leading-6">
+                <address className="not-italic text-sm leading-6 text-white/70">
                   {(tCommon.raw("address") as string[]).map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -60,7 +81,7 @@ export async function SiteFooter() {
             </li>
             <li>
               <FooterLine icon={<TimeIcon />} label={tCommon("hoursLabel")}>
-                <p className="text-sm leading-6">{tCommon("hours")}</p>
+                <p className="text-sm leading-6 text-white/70">{tCommon("hours")}</p>
               </FooterLine>
             </li>
             <li>
@@ -70,7 +91,7 @@ export async function SiteFooter() {
                     <li key={phone}>
                       <a
                         href={`tel:${phone.replaceAll("-", "")}`}
-                        className="text-sm text-white transition-opacity duration-300 ease-out hover:opacity-80"
+                        className="text-sm text-white transition-colors duration-300 ease-out hover:text-primary"
                       >
                         {phone}
                       </a>
@@ -83,7 +104,7 @@ export async function SiteFooter() {
               <FooterLine icon={<EmailIcon />} label={tCommon("email")}>
                 <a
                   href={`mailto:${company.email}`}
-                  className="break-all text-sm text-white transition-opacity duration-300 ease-out hover:opacity-80"
+                  className="break-all text-sm text-white transition-colors duration-300 ease-out hover:text-primary"
                 >
                   {company.email}
                 </a>
@@ -92,8 +113,8 @@ export async function SiteFooter() {
           </ul>
         </div>
       </Container>
-      <div className="border-t border-white/20">
-        <Container className="flex flex-col gap-2 py-5 text-xs text-white/85 sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative border-t border-white/10">
+        <Container className="flex flex-col gap-2 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
             {t("copyright", {
               year: new Date().getFullYear(),
@@ -118,7 +139,7 @@ function FooterLine({
 }) {
   return (
     <div className="flex gap-3">
-      <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/25 bg-white/15 text-white">
+      <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-brand border border-white/10 bg-white/5 text-primary">
         {icon}
       </div>
       <div className="min-w-0">

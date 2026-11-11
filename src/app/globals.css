@@ -2,10 +2,13 @@
 
 :root {
   --background: #f7f8f4;
-  --foreground: #111827;
+  --foreground: #0e110b;
   --primary: #4dc934;
   --primary-dark: #3aad28;
-  --ink: #111827;
+  --primary-ink: #1f6b12;
+  --primary-soft: color-mix(in srgb, var(--primary) 14%, white);
+  --ink: #0e110b;
+  --ink-2: #1a1f15;
   --slate: #4b5563;
   --paper: #f7f8f4;
   --hairline: #e5e7eb;
@@ -16,66 +19,252 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-soft: var(--primary-soft);
   --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
   --color-slate: var(--slate);
   --color-paper: var(--paper);
   --color-hairline: var(--hairline);
+  --radius-brand: 1rem;
   --font-sans: var(--font-work-sans), var(--font-myanmar);
   --font-display: var(--font-syne), var(--font-myanmar);
   --default-transition-duration: 300ms;
   --default-transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html {
-  background: var(--background);
-  color: var(--foreground);
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--background);
-  color: var(--slate);
-  font-family: var(--font-sans), system-ui, sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* Type scale: the only heading/copy sizes used across the site. */
+@utility text-display {
   font-family: var(--font-display), system-ui, sans-serif;
-  color: var(--ink);
+  font-size: 3rem;
+  line-height: 0.98;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  @media (width >= 40rem) {
+    font-size: 4rem;
+  }
+  @media (width >= 64rem) {
+    font-size: 4.5rem;
+  }
+}
+
+@utility text-heading {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 2.5rem;
+  line-height: 1.05;
+  font-weight: 600;
   letter-spacing: -0.03em;
+  @media (width >= 40rem) {
+    font-size: 3.5rem;
+  }
 }
 
-html[lang="my"] {
-  line-height: 1.75;
+@utility text-title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 2rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  @media (width >= 40rem) {
+    font-size: 2.5rem;
+  }
 }
 
-html[lang="my"] h1,
-html[lang="my"] h2,
-html[lang="my"] h3,
-html[lang="my"] h4,
-html[lang="my"] h5,
-html[lang="my"] h6 {
+@utility text-subtitle {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  @media (width >= 40rem) {
+    font-size: 1.5rem;
+  }
+}
+
+@utility text-lead {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  @media (width >= 40rem) {
+    font-size: 1.125rem;
+  }
+}
+
+@utility text-body {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+@utility text-eyebrow {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility section-y {
+  padding-block: 5rem;
+  @media (width >= 40rem) {
+    padding-block: 6rem;
+  }
+}
+
+@layer base {
+  html {
+    background: var(--background);
+    color: var(--foreground);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--slate);
+    font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+  }
+
+  html[lang="my"] {
+    line-height: 1.75;
+  }
+
+  html[lang="my"] h1,
+  html[lang="my"] h2,
+  html[lang="my"] h3,
+  html[lang="my"] h4,
+  html[lang="my"] h5,
+  html[lang="my"] h6 {
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 40%, white);
+    color: var(--ink);
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity, fill, stroke;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* Myanmar script needs taller lines and smaller display sizes. */
+html[lang="my"] .text-display,
+html[lang="my"] .text-heading,
+html[lang="my"] .text-title,
+html[lang="my"] .text-subtitle {
   letter-spacing: 0;
-  line-height: 1.3;
+  line-height: 1.5;
 }
 
-::selection {
-  background: color-mix(in srgb, var(--primary) 40%, white);
-  color: var(--ink);
+html[lang="my"] .text-display {
+  font-size: 2.25rem;
 }
 
-a,
-button,
-input,
-textarea,
-select {
-  transition-property: color, background-color, border-color, box-shadow, transform, opacity, fill, stroke;
-  transition-duration: 300ms;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+html[lang="my"] .text-heading {
+  font-size: 2rem;
+}
+
+html[lang="my"] .text-title {
+  font-size: 1.75rem;
+}
+
+html[lang="my"] .text-eyebrow {
+  letter-spacing: 0.04em;
+}
+
+@media (width >= 40rem) {
+  html[lang="my"] .text-display {
+    font-size: 3.25rem;
+  }
+
+  html[lang="my"] .text-heading {
+    font-size: 2.75rem;
+  }
+
+  html[lang="my"] .text-title {
+    font-size: 2.125rem;
+  }
+}
+
+@layer components {
+  /* Highlighter bar behind a word, like a marker on a proof. */
+  .highlight {
+    background-image: linear-gradient(var(--primary), var(--primary));
+    background-repeat: no-repeat;
+    background-size: 100% 0.42em;
+    background-position: 0 88%;
+    padding-inline: 0.08em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* Subtle paper grain for dark sections. */
+  .grain {
+    isolation: isolate;
+  }
+
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.08;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Printer's crop marks on the corners of a frame. */
+  .reg-marks::before,
+  .reg-marks::after {
+    content: "";
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    pointer-events: none;
+    border-color: var(--primary);
+    border-style: solid;
+  }
+
+  .reg-marks::before {
+    top: -0.625rem;
+    left: -0.625rem;
+    border-width: 2px 0 0 2px;
+  }
+
+  .reg-marks::after {
+    right: -0.625rem;
+    bottom: -0.625rem;
+    border-width: 0 2px 2px 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,5 +278,9 @@ select {
   textarea,
   select {
     transition-duration: 0.01ms;
+  }
+
+  .animate-marquee {
+    animation: none;
   }
 }

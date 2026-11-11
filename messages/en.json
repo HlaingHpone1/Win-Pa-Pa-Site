@@ -20,7 +20,10 @@
     "allProducts": "All products →",
     "sendAnother": "Send another",
     "location": "Location",
-    "address": ["124 Botahtaung Zay Street", "Pazuntaung Township, Yangon"],
+    "address": [
+      "124 Botahtaung Zay Street",
+      "Pazuntaung Township, Yangon"
+    ],
     "hoursLabel": "Hours",
     "phone": "Phone",
     "email": "Email",
@@ -61,7 +64,10 @@
     "featuredHeading": "On the press",
     "featuredKicker": "A short look at what we make. The full catalogue lives on Our Products.",
     "ctaTitle": "Ready to start printing?",
-    "ctaBody": "Upload your files or share your ideas. We’ll quickly provide recommendations for paper, binding, and production timelines."
+    "ctaBody": "Upload your files or share your ideas. We’ll quickly provide recommendations for paper, binding, and production timelines.",
+    "servicesEyebrow": "What we do",
+    "servicesHeading": "Two crafts, one roof",
+    "processEyebrow": "How it works"
   },
   "About": {
     "eyebrow": "About us",
@@ -260,6 +266,7 @@
     "pages": "Pages",
     "press": "Press",
     "copyright": "© {year} {name}",
-    "cityLine": "Yangon · printing & binding"
+    "cityLine": "Yangon · printing & binding",
+    "ctaTitle": "Let's print something great."
   }
 }

@@ -57,10 +57,10 @@ export function MobileNav() {
   }
 
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         type="button"
-        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-hairline bg-white text-ink transition-colors duration-300 ease-out hover:border-primary"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-brand border border-white/15 bg-white/10 text-white transition-colors duration-300 ease-out hover:border-primary hover:text-primary"
         aria-expanded={shown}
         aria-controls="mobile-menu"
         onClick={openMenu}
@@ -73,7 +73,7 @@ export function MobileNav() {
         ? createPortal(
             <div className={`fixed inset-0 z-[60] overflow-hidden ${shown ? "" : "pointer-events-none"}`}>
               <div
-                className={`absolute inset-0 bg-ink/40 transition-opacity duration-300 ease-out motion-reduce:transition-none ${
+                className={`absolute inset-0 bg-ink/60 backdrop-blur-sm transition-opacity duration-300 ease-out motion-reduce:transition-none ${
                   shown ? "opacity-100" : "opacity-0"
                 }`}
                 onClick={closeMenu}
@@ -83,15 +83,15 @@ export function MobileNav() {
                 aria-label={t("openMenu")}
                 aria-hidden={!shown}
                 inert={!shown}
-                className={`absolute inset-y-0 right-0 flex h-full w-[min(20rem,86vw)] max-w-full flex-col bg-paper shadow-xl transition-transform duration-300 ease-out motion-reduce:transition-none ${
+                className={`absolute inset-y-0 right-0 flex h-full w-[min(20rem,86vw)] max-w-full flex-col bg-ink shadow-xl grain transition-transform duration-300 ease-out motion-reduce:transition-none ${
                   shown ? "translate-x-0" : "translate-x-full"
                 }`}
               >
-                <div className="flex items-center justify-between border-b border-hairline px-5 py-4">
-                  <p className="font-display text-base font-semibold text-ink">{company.name}</p>
+                <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                  <p className="font-display text-base font-semibold text-white">{company.name}</p>
                   <button
                     type="button"
-                    className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-hairline bg-white text-ink transition-colors duration-300 ease-out hover:border-primary"
+                    className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-brand border border-white/15 bg-white/10 text-white transition-colors duration-300 ease-out hover:border-primary hover:text-primary"
                     onClick={closeMenu}
                   >
                     <span className="sr-only">{t("closeMenu")}</span>
@@ -103,13 +103,13 @@ export function MobileNav() {
                   <NavLinks
                     onNavigate={closeMenu}
                     className="flex flex-col gap-1"
-                    linkClassName="w-full px-3 text-lg"
+                    linkClassName="w-full px-4 font-display text-lg"
                   />
                 </nav>
 
-                <div className="border-t border-hairline px-5 py-5">
+                <div className="border-t border-white/10 px-5 py-5">
                   <LanguageSwitcher />
-                  <Button href="/contact" className="mt-4 w-full" onClick={closeMenu}>
+                  <Button href="/contact#quote" className="mt-4 w-full" arrow onClick={closeMenu}>
                     {t("cta")}
                   </Button>
                 </div>

@@ -55,7 +55,7 @@ export function CountUpStats({ stats }: { stats: readonly Stat[] }) {
   }, []);
 
   return (
-    <div ref={ref} className="grid gap-8 py-10 sm:grid-cols-3">
+    <div ref={ref} className="grid divide-y divide-ink/15 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
       {stats.map((stat) => (
         <CountUpStat key={stat.id} stat={stat} active={active} />
       ))}
@@ -98,9 +98,9 @@ function CountUpStat({ stat, active }: { stat: Stat; active: boolean }) {
   }, [active, parsed.target]);
 
   return (
-    <div className="text-center sm:text-left">
+    <div className="py-8 text-center sm:px-8 sm:py-14 sm:text-left sm:first:pl-0">
       <p
-        className="font-display text-4xl font-semibold tabular-nums text-white"
+        className="text-display tabular-nums text-ink"
         aria-label={stat.value}
       >
         <span aria-hidden>
@@ -109,7 +109,7 @@ function CountUpStat({ stat, active }: { stat: Stat; active: boolean }) {
           {parsed.suffix}
         </span>
       </p>
-      <p className="mt-1 text-sm text-white/90">{stat.label}</p>
+      <p className="text-eyebrow mt-3 text-ink/75">{stat.label}</p>
     </div>
   );
 }

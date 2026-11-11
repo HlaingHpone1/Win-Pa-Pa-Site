@@ -28,14 +28,17 @@ export default async function ContactPage() {
         imageAlt={t("bannerAlt")}
       />
 
-      <section>
-        <Container className="grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr]">
-          <div className="space-y-8">
-            <p className="font-display text-sm font-semibold text-ink">{t("press")}</p>
-            <ul className="space-y-6">
+      <section className="section-y">
+        <Container className="grid items-start gap-5 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="grain relative overflow-hidden rounded-brand bg-ink p-6 sm:p-8 lg:sticky lg:top-28">
+            <p className="text-eyebrow flex items-center gap-2 text-primary">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
+              {t("press")}
+            </p>
+            <ul className="mt-8 space-y-6">
               <li>
                 <Detail icon={<LocationIcon />} label={tCommon("location")}>
-                  <address className="not-italic text-base leading-7">
+                  <address className="not-italic text-base leading-7 text-white/75">
                     {(tCommon.raw("address") as string[]).map((line) => (
                       <span key={line} className="block">
                         {line}
@@ -46,7 +49,7 @@ export default async function ContactPage() {
               </li>
               <li>
                 <Detail icon={<TimeIcon />} label={tCommon("hoursLabel")}>
-                  <p className="text-base leading-7">{tCommon("hours")}</p>
+                  <p className="text-base leading-7 text-white/75">{tCommon("hours")}</p>
                 </Detail>
               </li>
               <li>
@@ -56,7 +59,7 @@ export default async function ContactPage() {
                       <li key={phone}>
                         <a
                           href={`tel:${phone.replaceAll("-", "")}`}
-                          className="text-lg font-medium text-ink transition-colors duration-300 ease-out hover:text-primary-dark"
+                          className="font-display text-base font-semibold text-white transition-colors duration-300 ease-out hover:text-primary sm:text-lg"
                         >
                           {phone}
                         </a>
@@ -69,7 +72,7 @@ export default async function ContactPage() {
                 <Detail icon={<EmailIcon />} label={tCommon("email")}>
                   <a
                     href={`mailto:${company.email}`}
-                    className="break-all text-ink transition-colors duration-300 ease-out hover:text-primary-dark"
+                    className="break-all text-white transition-colors duration-300 ease-out hover:text-primary"
                   >
                     {company.email}
                   </a>
@@ -77,21 +80,27 @@ export default async function ContactPage() {
               </li>
             </ul>
           </div>
-          <QuoteForm />
+          <div id="quote" className="scroll-mt-24">
+            <QuoteForm />
+          </div>
         </Container>
       </section>
 
-      <section>
-        <iframe
-          title={tCommon("mapIframeTitle", { name: company.fullName })}
-          src={company.mapEmbedSrc}
-          width="600"
-          height="450"
-          loading="lazy"
-          allowFullScreen
-          referrerPolicy="strict-origin-when-cross-origin"
-          className="block h-[70vh] min-h-[28rem] w-full border-0"
-        />
+      <section className="pb-20 sm:pb-24">
+        <Container>
+          <div className="overflow-hidden rounded-brand border border-hairline">
+            <iframe
+              title={tCommon("mapIframeTitle", { name: company.fullName })}
+              src={company.mapEmbedSrc}
+              width="600"
+              height="450"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin"
+              className="block h-[26rem] w-full border-0 sm:h-[32rem]"
+            />
+          </div>
+        </Container>
       </section>
     </>
   );
@@ -108,11 +117,11 @@ function Detail({
 }) {
   return (
     <div className="flex gap-4">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-hairline bg-white text-primary-dark">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-brand border border-white/10 bg-white/5 text-primary">
         {icon}
       </div>
       <div className="min-w-0">
-        <p className="text-xs font-medium tracking-[0.16em] text-primary-dark uppercase">
+        <p className="text-eyebrow text-white/50">
           {label}
         </p>
         <div className="mt-1">{children}</div>

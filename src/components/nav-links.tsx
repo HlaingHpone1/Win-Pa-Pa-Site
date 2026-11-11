@@ -33,22 +33,20 @@ export function NavLinks({
             <Link
               href={item.href}
               onClick={onNavigate}
-              className={`group relative inline-flex min-h-11 items-center text-sm tracking-wide transition-colors duration-300 ease-out ${
+              className={`inline-flex min-h-11 items-center gap-2 rounded-brand text-sm tracking-wide whitespace-nowrap transition-colors duration-300 ease-out ${
                 active
-                  ? "font-medium text-ink"
-                  : "text-slate hover:text-ink"
-              } whitespace-nowrap ${linkClassName}`}
+                  ? "bg-white/10 font-medium text-white"
+                  : "text-white/65 hover:bg-white/5 hover:text-white"
+              } ${linkClassName}`}
               aria-current={active ? "page" : undefined}
             >
-              <span className="relative">
-                {t(item.key)}
-                <span
-                  aria-hidden
-                  className={`absolute -bottom-1 left-0 h-0.5 rounded-full bg-primary transition-[width] duration-300 ease-out motion-reduce:transition-none ${
-                    active ? "w-6 group-hover:w-full" : "w-0 group-hover:w-full"
-                  }`}
-                />
-              </span>
+              <span
+                aria-hidden
+                className={`h-1.5 w-1.5 shrink-0 rounded-full bg-primary transition-opacity duration-300 ease-out ${
+                  active ? "opacity-100" : "opacity-0"
+                }`}
+              />
+              {t(item.key)}
             </Link>
           </li>
         );

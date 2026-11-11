@@ -14,46 +14,39 @@ export function PageHero({
   image?: string;
   imageAlt?: string;
 }) {
-  const banner = Boolean(image);
-
   return (
-    <section
-      className={
-        banner
-          ? "relative isolate min-h-[22rem] overflow-hidden sm:min-h-[28rem]"
-          : "border-b border-hairline bg-white"
-      }
-    >
-      {image ? (
-        <>
-          <Image
-            src={image}
-            alt={imageAlt ?? ""}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[72%_center]"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-paper via-paper/85 to-paper/20"
-          />
-        </>
-      ) : null}
+    <section className="grain relative -mt-[4.75rem] overflow-hidden bg-ink pt-[4.75rem]">
+      <div
+        aria-hidden
+        className="absolute -top-40 -right-40 h-[28rem] w-[28rem] rounded-full bg-primary/20 blur-3xl"
+      />
       <Container
-        className={
-          banner
-            ? "relative z-10 flex min-h-[22rem] flex-col justify-center py-16 sm:min-h-[28rem] sm:py-20"
-            : "py-16 sm:py-20"
-        }
+        className={`relative grid items-center gap-12 py-16 sm:py-20 ${
+          image ? "lg:grid-cols-[1.1fr_0.9fr]" : ""
+        }`}
       >
-        <p className="text-xs font-medium tracking-[0.18em] text-primary-dark uppercase">
-          {eyebrow}
-        </p>
-        <h1 className="mt-4 max-w-3xl text-4xl leading-[1.1] font-semibold sm:text-5xl md:text-6xl [html[lang=my]_&]:leading-[1.45]">
-          {title}
-        </h1>
-        <p className="mt-5 max-w-2xl text-base leading-7 sm:text-lg">{lead}</p>
+        <div>
+          <p className="text-eyebrow inline-flex items-center gap-2 rounded-brand border border-primary/30 bg-primary/10 px-3 py-2 text-primary">
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
+            {eyebrow}
+          </p>
+          <h1 className="text-heading mt-6 max-w-3xl text-white">{title}</h1>
+          <p className="text-lead mt-6 max-w-2xl text-white/70">{lead}</p>
+        </div>
+        {image ? (
+          <div className="reg-marks relative mx-2.5 sm:mx-0">
+            <div className="relative aspect-video overflow-hidden rounded-brand border border-white/10">
+              <Image
+                src={image}
+                alt={imageAlt ?? ""}
+                fill
+                priority
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        ) : null}
       </Container>
     </section>
   );

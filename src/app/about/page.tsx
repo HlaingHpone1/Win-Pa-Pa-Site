@@ -3,7 +3,9 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
-import { aboutMeta, aboutProcess, aboutValues } from "@/content/site";
+import { ProcessSteps } from "@/components/process-steps";
+import { SectionHeading } from "@/components/section-heading";
+import { aboutMeta, aboutValues } from "@/content/site";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("About");
@@ -29,11 +31,11 @@ export default async function AboutPage() {
         imageAlt={t("bannerAlt")}
       />
 
-      <section className="border-b border-hairline bg-white">
-        <Container className="grid items-center gap-10 py-16 lg:grid-cols-[0.8fr_1.2fr]">
-          <article className="rounded-3xl border border-hairline bg-paper p-6 sm:p-8">
+      <section className="section-y bg-white">
+        <Container className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+          <article className="grain relative overflow-hidden rounded-brand bg-ink p-5 sm:p-6">
             <div className="flex items-center gap-5 lg:flex-col lg:items-stretch">
-              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border border-hairline bg-white lg:aspect-[4/5] lg:h-auto lg:w-full">
+              <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-brand lg:aspect-[4/5] lg:h-auto lg:w-full">
                 <Image
                   src="/about/founder.jpg"
                   alt={t("founder.imageAlt")}
@@ -41,46 +43,42 @@ export default async function AboutPage() {
                   sizes="(min-width: 1024px) 36vw, 96px"
                   className="object-cover object-[center_20%]"
                 />
-                <p className="absolute bottom-4 left-4 hidden rounded-full bg-primary px-3 py-1 text-xs font-medium tracking-wide text-ink lg:inline-block">
+                <p className="text-eyebrow absolute bottom-4 left-4 hidden rounded-brand bg-primary px-3 py-2 text-ink lg:inline-block">
                   {t("est", { year: aboutMeta.founded })}
                 </p>
               </div>
-              <div>
-                <h2 className="text-2xl font-semibold">{t("founder.name")}</h2>
-                <p className="mt-1 text-sm">{t("founder.role")}</p>
-                <p className="mt-3 text-xs font-medium tracking-[0.16em] text-primary-dark uppercase">
-                  {t("founder.since")}
-                </p>
+              <div className="lg:px-2 lg:pb-2">
+                <h2 className="text-subtitle text-white">{t("founder.name")}</h2>
+                <p className="text-body mt-1 text-white/65">{t("founder.role")}</p>
+                <p className="text-eyebrow mt-3 text-primary">{t("founder.since")}</p>
               </div>
             </div>
           </article>
 
           <div>
-            <p className="text-xs font-medium tracking-[0.18em] text-primary-dark uppercase">
-              {t("founder.welcomeEyebrow")}
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
-              {t("founder.welcomeTitle")}
-            </h2>
-            <div className="mt-6 space-y-5 text-base leading-7">
+            <SectionHeading
+              eyebrow={t("founder.welcomeEyebrow")}
+              title={t("founder.welcomeTitle")}
+            />
+            <div className="text-lead mt-6 space-y-5">
               {welcome.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <p className="mt-8 font-display text-4xl font-semibold text-ink">
-              {aboutMeta.experience}
-              <span className="ml-2 text-lg font-medium text-slate">
-                {t("experienceLabel")}
+            <div className="mt-10 inline-flex items-center gap-4 rounded-brand border border-hairline bg-paper p-3 pr-5">
+              <span className="text-subtitle flex h-12 min-w-12 items-center justify-center rounded-brand bg-primary px-2 text-ink">
+                {aboutMeta.experience}
               </span>
-            </p>
+              <span className="text-sm font-medium text-ink">{t("experienceLabel")}</span>
+            </div>
           </div>
         </Container>
       </section>
 
-      <section className="border-b border-hairline">
-        <Container className="grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr]">
-          <h2 className="text-3xl font-semibold sm:text-4xl">{t("storyTitle")}</h2>
-          <div className="space-y-5 text-base leading-7">
+      <section className="section-y">
+        <Container className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <SectionHeading eyebrow={t("eyebrow")} title={t("storyTitle")} />
+          <div className="text-lead space-y-5 lg:pt-10">
             {story.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -88,55 +86,50 @@ export default async function AboutPage() {
         </Container>
       </section>
 
-      <section className="border-b border-hairline bg-white">
-        <Container className="py-16">
-          <h2 className="text-3xl font-semibold sm:text-4xl">{t("purposeTitle")}</h2>
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            <article className="rounded-2xl border border-hairline bg-paper p-8">
-              <p className="font-display text-sm font-semibold text-primary-dark">01</p>
-              <h3 className="mt-4 text-2xl font-semibold">{t("mission.title")}</h3>
-              <p className="mt-4 text-sm leading-7">{t("mission.body")}</p>
+      <section className="section-y bg-white">
+        <Container>
+          <SectionHeading title={t("purposeTitle")} />
+          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+            <article className="grain relative overflow-hidden rounded-brand bg-ink p-8 sm:p-10">
+              <p className="text-eyebrow text-primary">01</p>
+              <h3 className="text-subtitle mt-6 text-white">{t("mission.title")}</h3>
+              <p className="text-body mt-4 text-white/70">{t("mission.body")}</p>
             </article>
-            <article className="rounded-2xl border border-hairline bg-paper p-8">
-              <p className="font-display text-sm font-semibold text-primary-dark">02</p>
-              <h3 className="mt-4 text-2xl font-semibold">{t("vision.title")}</h3>
-              <p className="mt-4 text-sm leading-7">{t("vision.body")}</p>
+            <article className="rounded-brand bg-primary p-8 sm:p-10">
+              <p className="text-eyebrow text-ink/70">02</p>
+              <h3 className="text-subtitle mt-6">{t("vision.title")}</h3>
+              <p className="text-body mt-4 text-ink/80">{t("vision.body")}</p>
             </article>
           </div>
         </Container>
       </section>
 
-      <section className="border-b border-hairline">
-        <Container className="py-16">
-          <h2 className="text-3xl font-semibold sm:text-4xl">{t("valuesTitle")}</h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            {aboutValues.map((value) => (
+      <section className="section-y">
+        <Container>
+          <SectionHeading title={t("valuesTitle")} />
+          <div className="mt-12 grid gap-5 sm:grid-cols-3">
+            {aboutValues.map((value, index) => (
               <article
                 key={value}
-                className="rounded-2xl border border-hairline bg-white p-6"
+                className="rounded-brand border border-hairline bg-white p-6 transition-colors duration-300 ease-out hover:border-primary"
               >
-                <h3 className="text-xl font-semibold">{t(`values.${value}.title`)}</h3>
-                <p className="mt-3 text-sm leading-6">{t(`values.${value}.body`)}</p>
+                <span className="text-eyebrow flex h-10 w-10 items-center justify-center rounded-brand bg-primary-soft text-primary-ink">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="text-subtitle mt-6">{t(`values.${value}.title`)}</h3>
+                <p className="text-body mt-3">{t(`values.${value}.body`)}</p>
               </article>
             ))}
           </div>
         </Container>
       </section>
 
-      <section>
-        <Container className="py-16">
-          <h2 className="text-3xl font-semibold sm:text-4xl">{t("processTitle")}</h2>
-          <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {aboutProcess.map((item) => (
-              <li key={item.id} className="border-t border-primary pt-6">
-                <p className="font-display text-sm font-semibold text-primary-dark">
-                  {item.step}
-                </p>
-                <h3 className="mt-3 text-xl font-semibold">{t(`process.${item.id}.title`)}</h3>
-                <p className="mt-2 text-sm leading-6">{t(`process.${item.id}.body`)}</p>
-              </li>
-            ))}
-          </ol>
+      <section className="grain section-y relative overflow-hidden bg-ink">
+        <Container className="relative">
+          <SectionHeading tone="dark" title={t("processTitle")} />
+          <div className="mt-12">
+            <ProcessSteps />
+          </div>
         </Container>
       </section>
     </>

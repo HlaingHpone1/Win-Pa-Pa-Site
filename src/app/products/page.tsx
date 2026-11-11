@@ -4,6 +4,7 @@ import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { PageHero } from "@/components/page-hero";
 import { ProductCard } from "@/components/product-card";
+import { SectionHeading } from "@/components/section-heading";
 import { productGroupIds, products } from "@/content/products";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,27 +30,53 @@ export default async function ProductsPage() {
         imageAlt={t("bannerAlt")}
       />
 
-      {productGroupIds.map((groupId) => (
+      <div className="sticky top-[5.5rem] z-40 -mt-7 mb-0">
+        <Container>
+          <nav
+            aria-label={t("eyebrow")}
+            className="inline-flex gap-1 rounded-brand border border-hairline bg-white/90 p-1.5 shadow-[0_12px_32px_-18px_rgba(14,17,11,0.4)] backdrop-blur-md"
+          >
+            {productGroupIds.map((groupId, index) => (
+              <a
+                key={groupId}
+                href={`#${groupId}`}
+                className="inline-flex min-h-11 items-center gap-2 rounded-brand px-4 text-sm font-semibold text-ink transition-colors duration-300 ease-out hover:bg-primary"
+              >
+                <span className="text-eyebrow text-primary-ink">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {t(`groups.${groupId}.title`)}
+              </a>
+            ))}
+          </nav>
+        </Container>
+      </div>
+
+      {productGroupIds.map((groupId, index) => (
         <section
           key={groupId}
           id={groupId}
-          className="scroll-mt-24 border-b border-hairline even:bg-white"
+          className="section-y scroll-mt-28 even:bg-white"
         >
-          <Container className="py-16">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <h2 className="text-3xl font-semibold sm:text-4xl">
-                  {t(`groups.${groupId}.title`)}
-                </h2>
-                <p className="mt-2 max-w-xl text-sm leading-6">
-                  {t(`groups.${groupId}.intro`)}
-                </p>
+          <Container>
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <div className="flex items-start gap-5">
+                <span
+                  aria-hidden
+                  className="text-display leading-none! text-transparent [-webkit-text-stroke:1.5px_var(--primary)]"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <SectionHeading
+                  title={t(`groups.${groupId}.title`)}
+                  lead={t(`groups.${groupId}.intro`)}
+                />
               </div>
-              <Button href="/contact" variant="secondary">
+              <Button href="/contact#quote" variant="secondary" arrow>
                 {tCommon("cta")}
               </Button>
             </div>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {products
                 .filter((product) => product.kind === groupId)
                 .map((product) => (

@@ -27,7 +27,7 @@ export function HeroSlider({ children }: { children: React.ReactNode }) {
 
   return (
     <section
-      className="relative -mt-[4.25rem] h-[100dvh] overflow-hidden"
+      className="relative -mt-[4.75rem] min-h-[100dvh] overflow-hidden bg-ink"
       aria-roledescription="carousel"
       aria-label={t("sliderLabel")}
       onMouseEnter={() => setPaused(true)}
@@ -57,11 +57,12 @@ export function HeroSlider({ children }: { children: React.ReactNode }) {
         </div>
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-paper via-paper/80 to-paper/25"
+          className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/30"
         />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
       </div>
 
-      <div className="relative z-10 flex h-full flex-col justify-center pt-[4.25rem]">
+      <div className="relative z-10 flex min-h-[100dvh] flex-col justify-center pt-28 pb-24 sm:pt-[4.75rem]">
         {children}
         <div className="absolute inset-x-0 bottom-8 z-10 mx-auto flex w-full max-w-[1120px] gap-2 px-5 sm:px-8">
           {heroSlides.map((slide, slideIndex) => {
@@ -73,7 +74,7 @@ export function HeroSlider({ children }: { children: React.ReactNode }) {
                 aria-label={t("goToSlide", { index: slideIndex + 1 })}
                 aria-current={active ? "true" : undefined}
                 className={`h-1.5 rounded-full transition-all duration-300 ease-out ${
-                  active ? "w-10 bg-primary" : "w-5 bg-ink/25 hover:bg-ink/40"
+                  active ? "w-10 bg-primary" : "w-5 bg-white/30 hover:bg-white/60"
                 }`}
                 onClick={() => setIndex(slideIndex)}
               />
