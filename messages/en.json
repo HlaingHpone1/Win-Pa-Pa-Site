@@ -4,7 +4,8 @@
     "about": "About us",
     "products": "Our Products",
     "clients": "Our Clients",
-    "contact": "Contact us"
+    "contact": "Contact us",
+    "books": "Books"
   },
   "Common": {
     "cta": "Get a quote",
@@ -260,6 +261,12 @@
       "binding": "Binding",
       "both": "Printing & binding",
       "other": "Something else"
+    },
+    "serviceHints": {
+      "printing": "Offset & digital runs",
+      "binding": "Perfect, saddle, spiral, hardcover",
+      "both": "The full job under one roof",
+      "other": "Tell us what you need"
     }
   },
   "Footer": {
@@ -268,5 +275,130 @@
     "copyright": "© {year} {name}",
     "cityLine": "Yangon · printing & binding",
     "ctaTitle": "Let's print something great."
+  },
+  "Books": {
+    "eyebrow": "Bookshop",
+    "title": "Books printed and bound in our own shop.",
+    "lead": "Novels, study guides, dhamma books and children's titles, printed and bound in Yangon. Order online and pay on delivery, or by KBZPay or WavePay.",
+    "bannerAlt": "Stacks of freshly bound books",
+    "filterLabel": "Book categories",
+    "all": "All books",
+    "count": "{count, plural, one {# book} other {# books}}",
+    "price": "{amount} Ks",
+    "addToCart": "Add to cart",
+    "added": "Added",
+    "categories": {
+      "novels": "Novels",
+      "education": "Education",
+      "dhamma": "Dhamma",
+      "children": "Children"
+    },
+    "bulkTitle": "Ordering for a school or library?",
+    "bulkBody": "We print and bind bulk runs of any title. Tell us the quantity and we'll send a quote.",
+    "items": {
+      "river-house": {
+        "title": "The River House",
+        "author": "Nyein Chan",
+        "blurb": "Three generations of one family and the house on the Ayeyarwady that holds them together."
+      },
+      "monsoon-letters": {
+        "title": "Monsoon Letters",
+        "author": "Thiri Aung",
+        "blurb": "Letters between two friends across one long rainy season."
+      },
+      "matric-maths": {
+        "title": "Matriculation Maths Guide",
+        "author": "U Kyaw Min",
+        "blurb": "Worked examples and past-paper practice for Grade 10 mathematics."
+      },
+      "everyday-english": {
+        "title": "Everyday English Grammar",
+        "author": "Daw Hnin Si",
+        "blurb": "Clear rules and short exercises for students and working adults."
+      },
+      "daily-dhamma": {
+        "title": "Daily Dhamma Reflections",
+        "author": "Sayadaw U Pannya",
+        "blurb": "A short reflection for every day of the year."
+      },
+      "quiet-mind": {
+        "title": "A Quiet Mind",
+        "author": "Ko Zaw Htet",
+        "blurb": "A practical beginner's guide to meditation at home."
+      },
+      "little-elephant": {
+        "title": "The Little White Elephant",
+        "author": "Ma Su Su",
+        "blurb": "A picture book about a young elephant who finds his way home."
+      },
+      "first-alphabet": {
+        "title": "My First Myanmar Alphabet",
+        "author": "Win Pa Pa Kids",
+        "blurb": "Big letters and bright pictures for early readers."
+      }
+    }
+  },
+  "Cart": {
+    "open": "Open cart",
+    "close": "Close cart",
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "browse": "Browse books",
+    "subtotal": "Subtotal",
+    "deliveryLater": "Delivery fee is confirmed by phone.",
+    "checkout": "Checkout",
+    "remove": "Remove",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "qty": "Quantity"
+  },
+  "Checkout": {
+    "eyebrow": "Checkout",
+    "title": "Almost there.",
+    "lead": "Tell us where to send your books. We'll call to confirm the order and delivery fee.",
+    "contactTitle": "Your details",
+    "fulfilmentTitle": "Delivery",
+    "paymentTitle": "Payment",
+    "summaryTitle": "Order summary",
+    "fields": {
+      "name": "Full name",
+      "phone": "Phone",
+      "email": "Email (optional)",
+      "township": "Township / city",
+      "address": "Street address",
+      "note": "Note for the shop (optional)",
+      "notePlaceholder": "Gift wrapping, best time to call…"
+    },
+    "fulfilment": {
+      "delivery": "Deliver to me",
+      "deliveryHint": "Fee confirmed by phone",
+      "pickup": "Pick up at shop",
+      "pickupHint": "Free · Pazundaung, Yangon"
+    },
+    "payment": {
+      "cod": "Cash on delivery",
+      "codHint": "Pay when the books arrive",
+      "kbzpay": "KBZPay",
+      "kbzpayHint": "Transfer after ordering",
+      "wavepay": "WavePay",
+      "wavepayHint": "Transfer after ordering"
+    },
+    "delivery": "Delivery",
+    "deliveryValue": "By phone",
+    "total": "Books subtotal",
+    "placeOrder": "Place order",
+    "placing": "Placing order…",
+    "submitError": "We couldn't place your order. Please try again or call us.",
+    "successTitle": "Thank you, your order is in!",
+    "successBody": "We'll call you shortly to confirm the order and the delivery fee.",
+    "orderNo": "Order number",
+    "transferTitle": "Pay with {method}",
+    "transferBody": "Send {amount} Ks to the account below, then send a screenshot of the transfer with your order number to {phone}.",
+    "accountName": "Account name",
+    "accountNumber": "Account number",
+    "keepShopping": "Keep shopping",
+    "emptyTitle": "Your cart is empty.",
+    "emptyBody": "Add a few books first, then come back here to check out.",
+    "grandTotal": "Total"
   }
 }

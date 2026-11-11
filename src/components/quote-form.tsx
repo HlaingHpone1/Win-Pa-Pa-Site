@@ -5,30 +5,24 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/button";
 import { ServiceSelect } from "@/components/service-select";
 import { serviceValues } from "@/content/site";
+import {
+  Field,
+  FieldLabel,
+  Icon,
+  isValidPhone,
+  MailIcon,
+  PhoneField,
+  sanitizePhone,
+  textareaBase,
+  UserIcon,
+} from "@/components/form-fields";
 
 type Status = "idle" | "sending" | "sent";
-
-const phonePattern = "^[+]?[\\d\\s\\-()]{8,20}$";
-
-function digitsOnly(value: string) {
-  return value.replace(/\D/g, "");
-}
-
-function sanitizePhone(value: string) {
-  return value.replace(/[^\d+\-\s()]/g, "");
-}
-
-function isValidPhone(value: string) {
-  const digits = digitsOnly(value);
-  return digits.length >= 8 && digits.length <= 15;
-}
 
 export function QuoteForm() {
   const t = useTranslations("Contact");
   const tCommon = useTranslations("Common");
   const [status, setStatus] = useState<Status>("idle");
-  const [phone, setPhone] = useState("");
-  const [phoneError, setPhoneError] = useState("");
   const [submitError, setSubmitError] = useState("");
 
   if (status === "sent") {
@@ -46,8 +40,6 @@ export function QuoteForm() {
           variant="secondary"
           onClick={() => {
             setStatus("idle");
-            setPhone("");
-            setPhoneError("");
             setSubmitError("");
           }}
         >
@@ -78,7 +70,6 @@ export function QuoteForm() {
         const message = String(data.get("message") ?? "").trim();
 
         if (!isValidPhone(nextPhone)) {
-          setPhoneError(t("fields.phoneError"));
           const phoneInput = form.elements.namedItem("phone");
           if (phoneInput instanceof HTMLInputElement) {
             phoneInput.setCustomValidity(t("fields.phoneError"));
@@ -134,6 +125,7 @@ export function QuoteForm() {
 
       <div className="grid gap-5 p-6 sm:p-8">
         <Field
+          idPrefix="quote"
           label={t("fields.name")}
           name="name"
           autoComplete="name"
@@ -141,50 +133,13 @@ export function QuoteForm() {
           required
         />
         <div className="grid gap-5 sm:grid-cols-2">
-          <div className="grid gap-2 text-sm">
-            <label htmlFor="quote-phone" className="font-medium text-ink">
-              {t("fields.phone")}
-              <span aria-hidden className="ml-0.5 text-primary-ink">*</span>
-            </label>
-            <div className="group relative">
-              <span className={iconSlot}>
-                <PhoneIcon />
-              </span>
-              <input
-                id="quote-phone"
-                name="phone"
-                type="tel"
-                inputMode="tel"
-                autoComplete="tel"
-                required
-                value={phone}
-                pattern={phonePattern}
-                placeholder="09-xxx xxx xxx"
-                aria-invalid={phoneError ? true : undefined}
-                aria-describedby={phoneError ? "phone-error" : undefined}
-                className={`${inputBase} ${
-                  phoneError ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : "border-hairline"
-                }`}
-                onChange={(event) => {
-                  const next = sanitizePhone(event.target.value);
-                  setPhone(next);
-                  if (!next || isValidPhone(next)) {
-                    setPhoneError("");
-                    event.target.setCustomValidity("");
-                  } else {
-                    setPhoneError(t("fields.phoneError"));
-                    event.target.setCustomValidity(t("fields.phoneError"));
-                  }
-                }}
-              />
-            </div>
-            {phoneError ? (
-              <span id="phone-error" className="text-xs text-red-600">
-                {phoneError}
-              </span>
-            ) : null}
-          </div>
+          <PhoneField
+            idPrefix="quote"
+            label={t("fields.phone")}
+            errorMessage={t("fields.phoneError")}
+          />
           <Field
+            idPrefix="quote"
             label={t("fields.email")}
             name="email"
             type="email"
@@ -201,16 +156,15 @@ export function QuoteForm() {
           defaultValue="both"
         />
         <div className="grid gap-2 text-sm">
-          <label htmlFor="quote-message" className="font-medium text-ink">
+          <FieldLabel htmlFor="quote-message" required>
             {t("fields.message")}
-            <span aria-hidden className="ml-0.5 text-primary-ink">*</span>
-          </label>
+          </FieldLabel>
           <textarea
             id="quote-message"
             name="message"
             required
             rows={4}
-            className="resize-y rounded-brand border border-hairline bg-paper px-3.5 py-3 text-ink outline-none transition-[border-color,background-color,box-shadow] duration-300 ease-out placeholder:text-slate/60 hover:border-ink/25 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/25"
+            className={textareaBase}
             placeholder={t("placeholder")}
           />
         </div>
@@ -224,97 +178,6 @@ export function QuoteForm() {
         </Button>
       </div>
     </form>
-  );
-}
-
-const iconSlot =
-  "pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-slate/70 transition-colors duration-300 ease-out group-focus-within:text-primary-ink";
-
-const inputBase =
-  "min-h-12 w-full rounded-brand border bg-paper pr-3.5 pl-11 text-ink outline-none transition-[border-color,background-color,box-shadow] duration-300 ease-out placeholder:text-slate/50 hover:border-ink/25 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/25";
-
-function Field({
-  label,
-  name,
-  type = "text",
-  autoComplete,
-  placeholder,
-  icon,
-  required,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  autoComplete?: string;
-  placeholder?: string;
-  icon: React.ReactNode;
-  required?: boolean;
-}) {
-  const id = `quote-${name}`;
-
-  return (
-    <div className="grid gap-2 text-sm">
-      <label htmlFor={id} className="font-medium text-ink">
-        {label}
-        {required ? <span aria-hidden className="ml-0.5 text-primary-ink">*</span> : null}
-      </label>
-      <div className="group relative">
-        <span className={iconSlot}>{icon}</span>
-        <input
-          id={id}
-          name={name}
-          type={type}
-          autoComplete={autoComplete}
-          placeholder={placeholder}
-          required={required}
-          className={`${inputBase} border-hairline`}
-        />
-      </div>
-    </div>
-  );
-}
-
-function Icon({ children }: { children: React.ReactNode }) {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      {children}
-    </svg>
-  );
-}
-
-function UserIcon() {
-  return (
-    <Icon>
-      <circle cx="10" cy="7" r="3.2" />
-      <path d="M3.8 17c.9-3 3.3-4.6 6.2-4.6s5.3 1.6 6.2 4.6" />
-    </Icon>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <Icon>
-      <path d="M5.4 3.8h2.2l1.1 2.8-1.4 1.4a10.5 10.5 0 0 0 5.7 5.7l1.4-1.4 2.8 1.1v2.2c0 .8-.6 1.4-1.4 1.4C8.6 17 3 11.4 3 4.8c0-.8.6-1 1.4-1Z" />
-    </Icon>
-  );
-}
-
-function MailIcon() {
-  return (
-    <Icon>
-      <rect x="3" y="5" width="14" height="10.4" rx="1.6" />
-      <path d="M4 6.4 10 11l6-4.6" />
-    </Icon>
   );
 }
 

@@ -1,3 +1,5 @@
+import { formatKs } from "@/content/books";
+
 type QuotePayload = {
   name: string;
   phone: string;
@@ -18,7 +20,21 @@ function readChatId(value: string) {
   return /^-?\d+$/.test(trimmed) ? Number(trimmed) : trimmed;
 }
 
-export async function sendQuoteToTelegram(payload: QuotePayload) {
+export type OrderPayload = {
+  orderNo: string;
+  name: string;
+  phone: string;
+  email: string;
+  fulfilment: "delivery" | "pickup";
+  township: string;
+  address: string;
+  payment: "cod" | "kbzpay" | "wavepay";
+  note: string;
+  lines: { title: string; qty: number; total: number }[];
+  subtotal: number;
+};
+
+async function sendTelegramMessage(text: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN?.trim();
   const chatId = process.env.TELEGRAM_CHAT_ID
     ? readChatId(process.env.TELEGRAM_CHAT_ID)
@@ -27,17 +43,6 @@ export async function sendQuoteToTelegram(payload: QuotePayload) {
   if (!token || chatId === "") {
     throw new Error("Telegram is not configured.");
   }
-
-  const text = [
-    "<b>New quote · Win Pa Pa</b>",
-    "",
-    `<b>Name:</b> ${escapeHtml(payload.name)}`,
-    `<b>Phone:</b> ${escapeHtml(payload.phone)}`,
-    `<b>Email:</b> ${escapeHtml(payload.email)}`,
-    `<b>Service:</b> ${escapeHtml(payload.service)}`,
-    "",
-    escapeHtml(payload.message),
-  ].join("\n");
 
   const response = await fetch(
     `https://api.telegram.org/bot${token}/sendMessage`,
@@ -60,4 +65,49 @@ export async function sendQuoteToTelegram(payload: QuotePayload) {
   if (!response.ok || !result.ok) {
     throw new Error(result.description ?? "Telegram rejected the message.");
   }
+}
+
+export async function sendQuoteToTelegram(payload: QuotePayload) {
+  const text = [
+    "<b>New quote · Win Pa Pa</b>",
+    "",
+    `<b>Name:</b> ${escapeHtml(payload.name)}`,
+    `<b>Phone:</b> ${escapeHtml(payload.phone)}`,
+    `<b>Email:</b> ${escapeHtml(payload.email)}`,
+    `<b>Service:</b> ${escapeHtml(payload.service)}`,
+    "",
+    escapeHtml(payload.message),
+  ].join("\n");
+
+  await sendTelegramMessage(text);
+}
+
+const paymentLabels: Record<OrderPayload["payment"], string> = {
+  cod: "Cash on delivery",
+  kbzpay: "KBZPay transfer",
+  wavepay: "WavePay transfer",
+};
+
+export async function sendOrderToTelegram(order: OrderPayload) {
+  const text = [
+    `<b>New book order · ${escapeHtml(order.orderNo)}</b>`,
+    "",
+    `<b>Name:</b> ${escapeHtml(order.name)}`,
+    `<b>Phone:</b> ${escapeHtml(order.phone)}`,
+    order.email ? `<b>Email:</b> ${escapeHtml(order.email)}` : null,
+    `<b>Payment:</b> ${paymentLabels[order.payment]}`,
+    order.fulfilment === "delivery"
+      ? `<b>Deliver to:</b> ${escapeHtml(order.address)}, ${escapeHtml(order.township)} (fee to confirm by phone)`
+      : "<b>Pickup</b> at the shop",
+    "",
+    ...order.lines.map(
+      (line) => `${line.qty} × ${escapeHtml(line.title)} = ${formatKs(line.total)} Ks`,
+    ),
+    `<b>Subtotal:</b> ${formatKs(order.subtotal)} Ks`,
+    order.note ? `\n<b>Note:</b> ${escapeHtml(order.note)}` : null,
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+
+  await sendTelegramMessage(text);
 }

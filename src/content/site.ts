@@ -2,6 +2,7 @@ export const nav = [
   { href: "/", key: "home" },
   { href: "/about", key: "about" },
   { href: "/products", key: "products" },
+  { href: "/books", key: "books" },
   { href: "/clients", key: "clients" },
   { href: "/contact", key: "contact" },
 ] as const;
@@ -16,6 +17,14 @@ export const company = {
   email: "winpapa000001@gmail.com",
   mapEmbedSrc:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.055348013511!2d96.1732340760718!3d16.773921720186074!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ede7e726593d%3A0x556c3c6eb09f027c!2sWin%20Pa%20Pa%20Printing%20House!5e0!3m2!1sen!2smm!4v1789978477283!5m2!1sen!2smm",
+};
+
+// Replace the placeholder accounts with the shop's real KBZPay / WavePay details.
+export const shop = {
+  payments: {
+    kbzpay: { accountName: "Win Pa Pa Publishing", accountNumber: "09-5101744" },
+    wavepay: { accountName: "Win Pa Pa Publishing", accountNumber: "09-424956356" },
+  },
 };
 
 export const heroSlides = [
