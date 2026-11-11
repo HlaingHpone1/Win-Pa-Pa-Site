@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import en from "../../../../messages/en.json";
 import { getBook, MAX_QTY } from "@/content/books";
+import { checkSubmission } from "@/lib/spam-guard";
 import { sendOrderToTelegram, type OrderPayload } from "@/lib/telegram";
 
 const MAX_LINES = 30;
@@ -64,6 +65,14 @@ export async function POST(request: Request) {
   const orderNo = createOrderNo();
 
   try {
+    const check = await checkSubmission(payload, request);
+    if (check === "silent-drop") {
+      return Response.json({ ok: true, orderNo });
+    }
+    if (check === "captcha-failed") {
+      return Response.json({ error: "captcha" }, { status: 403 });
+    }
+
     await sendOrderToTelegram({
       orderNo,
       name,

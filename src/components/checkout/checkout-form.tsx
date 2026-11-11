@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { BookCover } from "@/components/books/book-cover";
 import { clearCart, useCart, useHydrated } from "@/components/cart/cart-store";
@@ -17,6 +17,7 @@ import {
   textareaBase,
   UserIcon,
 } from "@/components/form-fields";
+import { HoneypotField, Turnstile, useStartedAt, type TurnstileHandle } from "@/components/spam-guard";
 import { formatKs } from "@/content/books";
 import { company, shop } from "@/content/site";
 
@@ -37,6 +38,8 @@ export function CheckoutForm() {
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [placed, setPlaced] = useState<Placed | null>(null);
+  const startedAt = useStartedAt();
+  const turnstile = useRef<TurnstileHandle>(null);
   const ks = (amount: number) => tBooks("price", { amount: formatKs(amount) });
 
   if (placed) {
@@ -61,7 +64,7 @@ export function CheckoutForm() {
 
   return (
     <form
-      className="grid items-start gap-6 lg:grid-cols-[1fr_24rem]"
+      className="relative grid items-start gap-6 lg:grid-cols-[1fr_24rem]"
       onSubmit={async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -95,19 +98,25 @@ export function CheckoutForm() {
               payment,
               note: data.get("note"),
               items,
+              website: data.get("website"),
+              startedAt,
+              turnstileToken: data.get("cf-turnstile-response"),
             }),
           });
           const result = (await response.json()) as { orderNo?: string };
 
           if (!response.ok || !result.orderNo) {
-            throw new Error("order_failed");
+            throw new Error(response.status === 403 ? "captcha" : "order_failed");
           }
 
           setPlaced({ orderNo: result.orderNo, payment, amount: subtotal });
           clearCart();
           window.scrollTo({ top: 0, behavior: "smooth" });
-        } catch {
-          setSubmitError(t("submitError"));
+        } catch (error) {
+          setSubmitError(
+            error instanceof Error && error.message === "captcha" ? t("captchaError") : t("submitError"),
+          );
+          turnstile.current?.reset();
         } finally {
           setSending(false);
         }
@@ -245,6 +254,10 @@ export function CheckoutForm() {
           <div className="mt-5 flex items-baseline justify-between border-t border-white/10 pt-5">
             <p className="text-eyebrow text-white/60">{t("grandTotal")}</p>
             <p className="text-title text-primary tabular-nums">{ks(subtotal)}</p>
+          </div>
+          <HoneypotField />
+          <div className="mt-6 rounded-brand bg-white p-1">
+            <Turnstile ref={turnstile} />
           </div>
           {submitError ? (
             <p role="alert" className="mt-5 rounded-brand border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">

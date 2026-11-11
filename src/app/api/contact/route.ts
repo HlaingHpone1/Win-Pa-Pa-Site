@@ -1,4 +1,5 @@
 import { serviceValues } from "@/content/site";
+import { checkSubmission } from "@/lib/spam-guard";
 import { sendQuoteToTelegram } from "@/lib/telegram";
 
 const services = new Set<string>(serviceValues);
@@ -44,6 +45,14 @@ export async function POST(request: Request) {
   }
 
   try {
+    const check = await checkSubmission(payload, request);
+    if (check === "silent-drop") {
+      return Response.json({ ok: true });
+    }
+    if (check === "captcha-failed") {
+      return Response.json({ error: "captcha" }, { status: 403 });
+    }
+
     await sendQuoteToTelegram({ name, phone, email, service, message });
     return Response.json({ ok: true });
   } catch {

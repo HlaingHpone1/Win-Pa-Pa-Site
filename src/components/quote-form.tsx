@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/button";
 import { ServiceSelect } from "@/components/service-select";
+import { HoneypotField, Turnstile, useStartedAt, type TurnstileHandle } from "@/components/spam-guard";
 import { serviceValues } from "@/content/site";
 import {
   Field,
@@ -24,6 +25,8 @@ export function QuoteForm() {
   const tCommon = useTranslations("Common");
   const [status, setStatus] = useState<Status>("idle");
   const [submitError, setSubmitError] = useState("");
+  const startedAt = useStartedAt();
+  const turnstile = useRef<TurnstileHandle>(null);
 
   if (status === "sent") {
     return (
@@ -58,7 +61,7 @@ export function QuoteForm() {
 
   return (
     <form
-      className="rounded-brand border border-hairline bg-white shadow-[0_32px_70px_-40px_rgba(14,17,11,0.45)]"
+      className="relative rounded-brand border border-hairline bg-white shadow-[0_32px_70px_-40px_rgba(14,17,11,0.45)]"
       onSubmit={async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -91,17 +94,23 @@ export function QuoteForm() {
               email,
               service,
               message,
+              website: data.get("website"),
+              startedAt,
+              turnstileToken: data.get("cf-turnstile-response"),
             }),
           });
 
           if (!response.ok) {
-            throw new Error("send_failed");
+            throw new Error(response.status === 403 ? "captcha" : "send_failed");
           }
 
           setStatus("sent");
-        } catch {
+        } catch (error) {
           setStatus("idle");
-          setSubmitError(t("submitError"));
+          setSubmitError(
+            error instanceof Error && error.message === "captcha" ? t("captchaError") : t("submitError"),
+          );
+          turnstile.current?.reset();
         }
       }}
     >
@@ -168,6 +177,8 @@ export function QuoteForm() {
             placeholder={t("placeholder")}
           />
         </div>
+        <HoneypotField />
+        <Turnstile ref={turnstile} />
         {submitError ? (
           <p role="alert" className="rounded-brand border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {submitError}

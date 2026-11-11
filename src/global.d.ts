@@ -7,3 +7,16 @@ declare module "next-intl" {
     Messages: typeof en;
   }
 }
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: HTMLElement,
+        options: { sitekey: string; size?: "normal" | "flexible" | "compact"; theme?: "light" | "dark" | "auto"; language?: string },
+      ) => string;
+      reset: (widgetId: string) => void;
+      remove: (widgetId: string) => void;
+    };
+  }
+}

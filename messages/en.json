@@ -267,7 +267,8 @@
       "binding": "Perfect, saddle, spiral, hardcover",
       "both": "The full job under one roof",
       "other": "Tell us what you need"
-    }
+    },
+    "captchaError": "Please complete the security check and try again."
   },
   "Footer": {
     "pages": "Pages",
@@ -399,6 +400,7 @@
     "keepShopping": "Keep shopping",
     "emptyTitle": "Your cart is empty.",
     "emptyBody": "Add a few books first, then come back here to check out.",
-    "grandTotal": "Total"
+    "grandTotal": "Total",
+    "captchaError": "Please complete the security check and try again."
   }
 }

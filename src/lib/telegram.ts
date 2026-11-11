@@ -34,14 +34,27 @@ export type OrderPayload = {
   subtotal: number;
 };
 
-async function sendTelegramMessage(text: string) {
-  const token = process.env.TELEGRAM_BOT_TOKEN?.trim();
-  const chatId = process.env.TELEGRAM_CHAT_ID
-    ? readChatId(process.env.TELEGRAM_CHAT_ID)
-    : "";
+// Quotes and book orders go to separate bots, so neither chat drowns out the other.
+// There is deliberately no fallback between them.
+type Channel = "quotes" | "orders";
+
+function readChannel(channel: Channel) {
+  const token =
+    channel === "orders" ? process.env.TELEGRAM_ORDERS_BOT_TOKEN : process.env.TELEGRAM_BOT_TOKEN;
+  const chatId =
+    channel === "orders" ? process.env.TELEGRAM_ORDERS_CHAT_ID : process.env.TELEGRAM_CHAT_ID;
+
+  return {
+    token: token?.trim(),
+    chatId: chatId ? readChatId(chatId) : "",
+  };
+}
+
+async function sendTelegramMessage(text: string, channel: Channel) {
+  const { token, chatId } = readChannel(channel);
 
   if (!token || chatId === "") {
-    throw new Error("Telegram is not configured.");
+    throw new Error(`Telegram (${channel}) is not configured.`);
   }
 
   const response = await fetch(
@@ -79,7 +92,7 @@ export async function sendQuoteToTelegram(payload: QuotePayload) {
     escapeHtml(payload.message),
   ].join("\n");
 
-  await sendTelegramMessage(text);
+  await sendTelegramMessage(text, "quotes");
 }
 
 const paymentLabels: Record<OrderPayload["payment"], string> = {
@@ -109,5 +122,5 @@ export async function sendOrderToTelegram(order: OrderPayload) {
     .filter((line) => line !== null)
     .join("\n");
 
-  await sendTelegramMessage(text);
+  await sendTelegramMessage(text, "orders");
 }
