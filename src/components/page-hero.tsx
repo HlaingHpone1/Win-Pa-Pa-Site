@@ -26,15 +26,15 @@ export function PageHero({
         }`}
       >
         <div>
-          <p className="text-eyebrow inline-flex items-center gap-2 rounded-brand border border-primary/30 bg-primary/10 px-3 py-2 text-primary">
+          <p data-hero className="text-eyebrow inline-flex items-center gap-2 rounded-brand border border-primary/30 bg-primary/10 px-3 py-2 text-primary">
             <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
             {eyebrow}
           </p>
-          <h1 className="text-heading mt-6 max-w-3xl text-white">{title}</h1>
-          <p className="text-lead mt-6 max-w-2xl text-white/70">{lead}</p>
+          <h1 data-hero className="text-heading mt-6 max-w-3xl text-white">{title}</h1>
+          <p data-hero className="text-lead mt-6 max-w-2xl text-white/70">{lead}</p>
         </div>
         {image ? (
-          <div className="reg-marks relative mx-2.5 sm:mx-0">
+          <div data-hero className="reg-marks relative mx-2.5 sm:mx-0">
             <div className="relative aspect-video overflow-hidden rounded-brand border border-white/10">
               <Image
                 src={image}

@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 export type ServiceOption = {
   value: string;
   label: string;
+  hint: string;
   icon: React.ReactNode;
 };
 
@@ -62,10 +63,12 @@ export function ServiceSelect({
   function onListKeyDown(event: React.KeyboardEvent<HTMLUListElement>) {
     switch (event.key) {
       case "ArrowDown":
+      case "ArrowRight":
         event.preventDefault();
         setActiveIndex((index) => (index + 1) % options.length);
         break;
       case "ArrowUp":
+      case "ArrowLeft":
         event.preventDefault();
         setActiveIndex((index) => (index - 1 + options.length) % options.length);
         break;
@@ -106,8 +109,10 @@ export function ServiceSelect({
         aria-expanded={open}
         aria-controls={`${id}-list`}
         aria-labelledby={`${id}-label ${id}-value`}
-        className={`group flex min-h-12 w-full items-center gap-3 rounded-brand border bg-paper px-3.5 text-left text-ink outline-none transition-[border-color,background-color,box-shadow] duration-300 ease-out hover:border-ink/25 focus-visible:border-primary focus-visible:bg-white focus-visible:ring-4 focus-visible:ring-primary/25 ${
-          open ? "border-primary bg-white ring-4 ring-primary/25" : "border-hairline"
+        className={`group relative flex w-full items-center gap-3.5 overflow-hidden rounded-brand border p-2.5 pr-3 text-left outline-none transition-[border-color,background-color,box-shadow] duration-300 ease-out focus-visible:ring-4 focus-visible:ring-primary/25 ${
+          open
+            ? "border-primary bg-white ring-4 ring-primary/25"
+            : "border-hairline bg-paper hover:border-primary/60 hover:bg-white"
         }`}
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={(event) => {
@@ -117,24 +122,31 @@ export function ServiceSelect({
           }
         }}
       >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-brand bg-primary-soft text-primary-ink">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-brand bg-primary text-ink shadow-[0_8px_20px_-10px_rgba(77,201,52,0.9)]">
           {selected.icon}
         </span>
-        <span id={`${id}-value`} className="flex-1 font-medium">
-          {selected.label}
+        <span id={`${id}-value`} className="min-w-0 flex-1">
+          <span className="block font-semibold text-ink">{selected.label}</span>
+          <span className="block truncate text-xs text-slate">{selected.hint}</span>
         </span>
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 20 20"
-          fill="none"
+        <span
           aria-hidden
-          className={`shrink-0 text-slate transition-transform duration-300 ease-out motion-reduce:transition-none ${
-            open ? "rotate-180" : ""
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-brand transition-colors duration-300 ease-out ${
+            open ? "bg-ink text-primary" : "bg-white text-ink group-hover:bg-ink group-hover:text-primary"
           }`}
         >
-          <path d="m5 7.5 5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 20 20"
+            fill="none"
+            className={`transition-transform duration-300 ease-out motion-reduce:transition-none ${
+              open ? "rotate-180" : ""
+            }`}
+          >
+            <path d="m5 7.5 5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
       </button>
 
       <ul
@@ -145,10 +157,10 @@ export function ServiceSelect({
         aria-labelledby={`${id}-label`}
         aria-activedescendant={open ? `${id}-option-${activeIndex}` : undefined}
         onKeyDown={onListKeyDown}
-        className={`absolute inset-x-0 top-full z-20 mt-2 grid gap-1 rounded-brand border border-hairline bg-white p-1.5 shadow-[0_24px_48px_-20px_rgba(14,17,11,0.35)] outline-none transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none ${
+        className={`grain absolute inset-x-0 top-full z-30 mt-2 grid origin-top gap-2 overflow-hidden rounded-brand border border-white/10 bg-ink p-2 shadow-[0_32px_64px_-24px_rgba(14,17,11,0.7)] outline-none transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none sm:grid-cols-2 ${
           open
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none invisible -translate-y-1 opacity-0"
+            ? "translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none invisible -translate-y-2 scale-[0.98] opacity-0"
         }`}
       >
         {options.map((option, index) => {
@@ -160,25 +172,40 @@ export function ServiceSelect({
               id={`${id}-option-${index}`}
               role="option"
               aria-selected={isSelected}
-              className={`flex min-h-11 cursor-pointer items-center gap-3 rounded-brand px-2.5 py-2 transition-colors duration-200 ease-out ${
-                isActive ? "bg-paper" : ""
-              } ${isSelected ? "font-semibold text-ink" : "text-slate"}`}
+              className={`relative flex cursor-pointer items-start gap-3 rounded-brand border p-3.5 transition-[background-color,border-color,transform] duration-200 ease-out ${
+                isSelected
+                  ? "border-primary bg-primary text-ink"
+                  : isActive
+                    ? "border-primary/50 bg-white/10 text-white"
+                    : "border-white/10 bg-white/5 text-white"
+              } ${open ? "translate-y-0" : "translate-y-1"}`}
+              style={{ transitionDelay: open ? `${index * 35}ms` : "0ms" }}
               onPointerEnter={() => setActiveIndex(index)}
               onClick={() => choose(index)}
             >
               <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-brand transition-colors duration-200 ease-out ${
-                  isSelected ? "bg-primary text-ink" : "bg-paper text-slate"
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-brand transition-colors duration-200 ease-out ${
+                  isSelected ? "bg-ink text-primary" : "bg-white/10 text-primary"
                 }`}
               >
                 {option.icon}
               </span>
-              <span className="flex-1">{option.label}</span>
-              {isSelected ? (
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden className="shrink-0 text-primary-ink">
-                  <path d="m4.5 10.5 3.5 3.5 7.5-8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <span className="min-w-0 flex-1 pr-6">
+                <span className="block font-semibold">{option.label}</span>
+                <span className={`mt-0.5 block text-xs leading-5 ${isSelected ? "text-ink/70" : "text-white/55"}`}>
+                  {option.hint}
+                </span>
+              </span>
+              <span
+                aria-hidden
+                className={`absolute top-3 right-3 flex h-5 w-5 items-center justify-center rounded-full transition-[opacity,transform] duration-200 ease-out ${
+                  isSelected ? "scale-100 bg-ink text-primary opacity-100" : "scale-50 opacity-0"
+                }`}
+              >
+                <svg width="12" height="12" viewBox="0 0 20 20" fill="none">
+                  <path d="m4.5 10.5 3.5 3.5 7.5-8" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              ) : null}
+              </span>
             </li>
           );
         })}

@@ -76,7 +76,7 @@ export default async function ProductsPage() {
                 {tCommon("cta")}
               </Button>
             </div>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div data-reveal-group className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {products
                 .filter((product) => product.kind === groupId)
                 .map((product) => (

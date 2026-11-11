@@ -14,7 +14,7 @@ export function SectionHeading({
   const dark = tone === "dark";
 
   return (
-    <div className={`max-w-2xl ${className}`}>
+    <div data-reveal className={`max-w-2xl ${className}`}>
       {eyebrow ? (
         <p className={`text-eyebrow flex items-center gap-2 ${dark ? "text-primary" : "text-primary-ink"}`}>
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />

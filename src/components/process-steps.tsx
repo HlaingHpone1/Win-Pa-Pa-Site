@@ -5,7 +5,7 @@ export async function ProcessSteps() {
   const t = await getTranslations("About");
 
   return (
-    <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <ol data-reveal-group className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {aboutProcess.map((item) => (
         <li
           key={item.id}

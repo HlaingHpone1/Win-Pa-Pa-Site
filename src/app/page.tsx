@@ -29,22 +29,22 @@ export default async function HomePage() {
     <>
       <HeroSlider>
         <Container>
-          <p className="text-eyebrow inline-flex items-center gap-2 rounded-brand border border-primary/30 bg-primary/10 px-3 py-2 text-primary">
+          <p data-hero className="text-eyebrow inline-flex items-center gap-2 rounded-brand border border-primary/30 bg-primary/10 px-3 py-2 text-primary">
             <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
             {t("eyebrow")}
           </p>
           <h1 className="text-display mt-6 max-w-2xl text-white">
             {titleLines.map((line) => (
-              <span key={line} className="block">
+              <span key={line} data-hero className="block">
                 {line}
               </span>
             ))}
-            <span className="block">
-              <span className="highlight text-white">{lastLine}</span>
+            <span data-hero className="block">
+              <span data-hero-mark className="highlight text-white">{lastLine}</span>
             </span>
           </h1>
-          <p className="text-lead mt-6 max-w-xl text-white/75">{t("lead")}</p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <p data-hero className="text-lead mt-6 max-w-xl text-white/75">{t("lead")}</p>
+          <div data-hero className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Button href="/contact#quote" arrow>
               {t("primaryCta")}
             </Button>
@@ -52,7 +52,7 @@ export default async function HomePage() {
               {t("secondaryCta")}
             </Button>
           </div>
-          <div className="mt-12 inline-flex items-center gap-4 rounded-brand border border-white/10 bg-white/5 p-3 pr-5 backdrop-blur-md">
+          <div data-hero className="mt-12 inline-flex items-center gap-4 rounded-brand border border-white/10 bg-white/5 p-3 pr-5 backdrop-blur-md">
             <span className="text-subtitle flex h-12 min-w-12 items-center justify-center rounded-brand bg-primary px-2 text-ink">
               {aboutMeta.experience}
             </span>
@@ -74,7 +74,7 @@ export default async function HomePage() {
             eyebrow={t("servicesEyebrow")}
             title={t("servicesHeading")}
           />
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
+          <div data-reveal-group className="mt-12 grid gap-5 md:grid-cols-2">
             {homeServices.map((service) => (
               <Link
                 key={service.id}
@@ -133,7 +133,7 @@ export default async function HomePage() {
               {tCommon("allProducts")}
             </Button>
           </div>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div data-reveal-group className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -162,7 +162,7 @@ export default async function HomePage() {
               title={tClients("title")}
               lead={tClients("lead")}
             />
-            <ul className="mt-8 flex flex-wrap gap-2">
+            <ul data-reveal-group className="mt-8 flex flex-wrap gap-2">
               {sectorIds.map((sector) => (
                 <li
                   key={sector}

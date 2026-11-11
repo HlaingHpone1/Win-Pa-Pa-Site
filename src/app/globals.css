@@ -254,6 +254,15 @@ html[lang="my"] .text-eyebrow {
   }
 }
 
+/* Until GSAP is ready, keep animated items hidden so they don't flash before their intro. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.motion-ready) [data-hero],
+  html.js:not(.motion-ready) [data-reveal] > *,
+  html.js:not(.motion-ready) [data-reveal-group] > * {
+    visibility: hidden;
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);

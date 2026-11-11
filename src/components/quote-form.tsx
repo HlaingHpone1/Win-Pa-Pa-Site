@@ -60,12 +60,13 @@ export function QuoteForm() {
   const serviceOptions = serviceValues.map((value) => ({
     value,
     label: t(`services.${value}`),
+    hint: t(`serviceHints.${value}`),
     icon: serviceIcons[value],
   }));
 
   return (
     <form
-      className="overflow-hidden rounded-brand border border-hairline bg-white shadow-[0_32px_70px_-40px_rgba(14,17,11,0.45)]"
+      className="rounded-brand border border-hairline bg-white shadow-[0_32px_70px_-40px_rgba(14,17,11,0.45)]"
       onSubmit={async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -113,7 +114,7 @@ export function QuoteForm() {
         }
       }}
     >
-      <div className="grain relative overflow-hidden bg-ink px-6 py-6 sm:px-8">
+      <div className="grain relative overflow-hidden rounded-t-brand bg-ink px-6 py-6 sm:px-8">
         <div
           aria-hidden
           className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-primary/30 blur-3xl"

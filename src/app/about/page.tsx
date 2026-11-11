@@ -89,7 +89,7 @@ export default async function AboutPage() {
       <section className="section-y bg-white">
         <Container>
           <SectionHeading title={t("purposeTitle")} />
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+          <div data-reveal-group className="mt-12 grid gap-5 lg:grid-cols-2">
             <article className="grain relative overflow-hidden rounded-brand bg-ink p-8 sm:p-10">
               <p className="text-eyebrow text-primary">01</p>
               <h3 className="text-subtitle mt-6 text-white">{t("mission.title")}</h3>
@@ -107,7 +107,7 @@ export default async function AboutPage() {
       <section className="section-y">
         <Container>
           <SectionHeading title={t("valuesTitle")} />
-          <div className="mt-12 grid gap-5 sm:grid-cols-3">
+          <div data-reveal-group className="mt-12 grid gap-5 sm:grid-cols-3">
             {aboutValues.map((value, index) => (
               <article
                 key={value}
